@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inference_app/models/model.dart';
-import 'package:inference_app/models/run.dart';
-import 'package:inference_app/page/run_list_page.dart';
-import 'package:inference_app/widgets/run_card.dart';
+import 'package:yhat_app/models/model.dart';
+import 'package:yhat_app/models/run.dart';
+import 'package:yhat_app/page/run_list_page.dart';
+import 'package:yhat_app/widgets/run_card.dart';
 
 import '../main.dart';
 

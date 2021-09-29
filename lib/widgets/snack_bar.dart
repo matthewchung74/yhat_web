@@ -1,9 +1,9 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inference_app/helpers/ui.dart';
-import 'package:inference_app/page/signin_page.dart';
-import 'package:inference_app/routing/stack.dart';
+import 'package:yhat_app/helpers/ui.dart';
+import 'package:yhat_app/page/signin_page.dart';
+import 'package:yhat_app/routing/stack.dart';
 
 import '../main.dart';
 

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inference_app/controller/providers.dart';
-import 'package:inference_app/helpers/ui.dart';
-import 'package:inference_app/main.dart';
-import 'package:inference_app/models/model.dart';
-import 'package:inference_app/page/model_page.dart';
-import 'package:inference_app/page/profile_page.dart';
-import 'package:inference_app/page/provider/model_provider.dart';
-import 'package:inference_app/widgets/model_card_grid.dart';
-import 'package:inference_app/widgets/my_app_bar.dart';
-import 'package:inference_app/widgets/snack_bar.dart';
+import 'package:yhat_app/controller/providers.dart';
+import 'package:yhat_app/helpers/ui.dart';
+import 'package:yhat_app/main.dart';
+import 'package:yhat_app/models/model.dart';
+import 'package:yhat_app/page/model_page.dart';
+import 'package:yhat_app/page/profile_page.dart';
+import 'package:yhat_app/page/provider/model_provider.dart';
+import 'package:yhat_app/widgets/model_card_grid.dart';
+import 'package:yhat_app/widgets/my_app_bar.dart';
+import 'package:yhat_app/widgets/snack_bar.dart';
 
 final provider = StateNotifierProvider.autoDispose<HomeModelNotifier,
     AsyncValue<List<Model>>>((ref) {
@@ -24,9 +24,12 @@ class HomeModelNotifier extends StateNotifier<AsyncValue<List<Model>>> {
   HomeModelNotifier({required this.ref}) : super(AsyncLoading()); // {
 
   void fetchFeaturedModels() async {
+    if (!mounted) return;
+
     state = AsyncLoading();
     try {
       _models = await ref.read(apiProvider).fetchModelList();
+      if (!mounted) return;
       state = AsyncData(_models!);
 
       ref.listen<AsyncValue<Model>>(modelProvider, (wrapped) async {
@@ -243,14 +246,14 @@ class HeaderWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Inference Featured Models',
+              'YHat Featured Models',
               style: Theme.of(context).textTheme.headline3,
             ),
             SizedBox(
               height: 8,
             ),
             Text(
-              'Some of the featured packages that represent Inference.codes models',
+              'Some of the featured packages that represent YHat.pub models',
               style: Theme.of(context).textTheme.bodyText2,
             ),
           ],

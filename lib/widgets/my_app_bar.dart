@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inference_app/controller/providers.dart';
-import 'package:inference_app/page/profile_page.dart';
-import 'package:inference_app/page/signin_page.dart';
+import 'package:yhat_app/controller/providers.dart';
+import 'package:yhat_app/page/profile_page.dart';
+import 'package:yhat_app/page/signin_page.dart';
 import 'package:uuid/uuid.dart';
 
 import '../main.dart';

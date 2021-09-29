@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inference_app/controller/providers.dart';
-import 'package:inference_app/models/model.dart';
+import 'package:yhat_app/controller/providers.dart';
+import 'package:yhat_app/models/model.dart';
 
 final modelProvider =
     StateNotifierProvider.autoDispose<ModelNotifier, AsyncValue<Model>>((ref) {

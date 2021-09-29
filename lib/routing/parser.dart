@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inference_app/controller/providers.dart';
-import 'package:inference_app/page/model_edit_page.dart';
-import 'package:inference_app/page/home_page.dart';
-import 'package:inference_app/page/build_start_page.dart';
-import 'package:inference_app/page/model_page.dart';
-import 'package:inference_app/page/build_nbs_page.dart';
-import 'package:inference_app/page/profile_page.dart';
-import 'package:inference_app/page/model_run_page.dart';
-import 'package:inference_app/page/run_list_page.dart';
-import 'package:inference_app/page/signin_page.dart';
-import 'package:inference_app/routing/stack.dart';
+import 'package:yhat_app/controller/providers.dart';
+import 'package:yhat_app/page/model_edit_page.dart';
+import 'package:yhat_app/page/home_page.dart';
+import 'package:yhat_app/page/build_start_page.dart';
+import 'package:yhat_app/page/model_page.dart';
+import 'package:yhat_app/page/build_nbs_page.dart';
+import 'package:yhat_app/page/profile_page.dart';
+import 'package:yhat_app/page/model_run_page.dart';
+import 'package:yhat_app/page/run_list_page.dart';
+import 'package:yhat_app/page/signin_page.dart';
+import 'package:yhat_app/routing/stack.dart';
 
 class MainRouterInformationParser
     extends RouteInformationParser<NavigationStack> {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:inference_app/models/token.dart';
+import 'package:yhat_app/models/token.dart';
 
 part 'user.g.dart';
 

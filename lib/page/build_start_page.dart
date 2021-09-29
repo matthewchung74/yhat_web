@@ -2,15 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inference_app/controller/providers.dart';
-import 'package:inference_app/helpers/errors.dart';
-import 'package:inference_app/helpers/ui.dart';
-import 'package:inference_app/main.dart';
-import 'package:inference_app/models/build.dart';
-import 'package:inference_app/models/token.dart';
-import 'package:inference_app/page/model_run_page.dart';
-import 'package:inference_app/widgets/my_app_bar.dart';
-import 'package:inference_app/widgets/snack_bar.dart';
+import 'package:yhat_app/controller/providers.dart';
+import 'package:yhat_app/helpers/errors.dart';
+import 'package:yhat_app/helpers/ui.dart';
+import 'package:yhat_app/main.dart';
+import 'package:yhat_app/models/build.dart';
+import 'package:yhat_app/models/token.dart';
+import 'package:yhat_app/page/model_run_page.dart';
+import 'package:yhat_app/widgets/my_app_bar.dart';
+import 'package:yhat_app/widgets/snack_bar.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:xterm/flutter.dart';
 import 'package:xterm/theme/terminal_style.dart';
@@ -178,7 +178,6 @@ class StartBuildNotifier
       }
     } on WebSocketChannelException catch (e, _) {
       Future.delayed(Duration(milliseconds: 3000)).then((_) async {
-        print("+++++++");
         await startBuild(retryCount: retryCount + 1);
       });
     } catch (e) {

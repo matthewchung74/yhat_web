@@ -4,15 +4,15 @@ import 'package:uuid/uuid.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inference_app/controller/providers.dart';
-import 'package:inference_app/models/branch.dart';
-import 'package:inference_app/models/build.dart';
-import 'package:inference_app/models/notebook.dart';
-import 'package:inference_app/models/repository.dart';
-import 'package:inference_app/models/user.dart';
-import 'package:inference_app/page/build_start_page.dart';
-import 'package:inference_app/widgets/my_app_bar.dart';
-import 'package:inference_app/widgets/snack_bar.dart';
+import 'package:yhat_app/controller/providers.dart';
+import 'package:yhat_app/models/branch.dart';
+import 'package:yhat_app/models/build.dart';
+import 'package:yhat_app/models/notebook.dart';
+import 'package:yhat_app/models/repository.dart';
+import 'package:yhat_app/models/user.dart';
+import 'package:yhat_app/page/build_start_page.dart';
+import 'package:yhat_app/widgets/my_app_bar.dart';
+import 'package:yhat_app/widgets/snack_bar.dart';
 
 import '../main.dart';
 

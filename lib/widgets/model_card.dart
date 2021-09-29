@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inference_app/models/model.dart';
+import 'package:yhat_app/models/model.dart';
 
 class ModelCard extends StatelessWidget {
   final Model model;

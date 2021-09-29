@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:inference_app/api/api.dart';
-import 'package:inference_app/helpers/ui.dart';
-import 'package:inference_app/models/model.dart';
-import 'package:inference_app/models/run.dart';
+import 'package:yhat_app/api/api.dart';
+import 'package:yhat_app/helpers/ui.dart';
+import 'package:yhat_app/models/model.dart';
+import 'package:yhat_app/models/run.dart';
 
 class RunCard extends StatelessWidget {
   final Model model;

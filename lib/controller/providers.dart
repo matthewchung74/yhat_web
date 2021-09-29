@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inference_app/api/api.dart';
-import 'package:inference_app/models/user.dart';
+import 'package:yhat_app/api/api.dart';
+import 'package:yhat_app/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final apiProvider = Provider<API>((ref) => API(read: ref.read));

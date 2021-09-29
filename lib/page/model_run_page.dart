@@ -2,16 +2,16 @@ import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inference_app/controller/providers.dart';
-import 'package:inference_app/models/model.dart';
-import 'package:inference_app/models/run.dart';
-import 'package:inference_app/models/signedUrl.dart';
-import 'package:inference_app/models/user.dart';
-import 'package:inference_app/widgets/my_app_bar.dart';
-import 'package:inference_app/widgets/run_list.dart';
+import 'package:yhat_app/controller/providers.dart';
+import 'package:yhat_app/models/model.dart';
+import 'package:yhat_app/models/run.dart';
+import 'package:yhat_app/models/signedUrl.dart';
+import 'package:yhat_app/models/user.dart';
+import 'package:yhat_app/widgets/my_app_bar.dart';
+import 'package:yhat_app/widgets/run_list.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:inference_app/widgets/snack_bar.dart';
+import 'package:yhat_app/widgets/snack_bar.dart';
 
 class ModelNotifierResponse extends Equatable {
   ModelNotifierResponse({

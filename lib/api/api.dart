@@ -271,8 +271,9 @@ class API {
         ..fields.addAll(signedUrl.fields);
       req.files.add(http.MultipartFile.fromBytes('file', file.bytes!,
           filename: fileName, contentType: new MediaType('image', 'jpeg')));
-      var streamedResponse = await req.send();
-      await http.Response.fromStream(streamedResponse);
+      await req.send();
+      // var streamedResponse = await req.send();
+      // await http.Response.fromStream(streamedResponse);
       String bucket = signedUrl.url.split(".")[0].replaceAll("https://", "");
       return "s3://$bucket/${signedUrl.fields['key']}";
     } on TokenException catch (e, _) {

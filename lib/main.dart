@@ -82,7 +82,7 @@ class MyNavApp extends ConsumerWidget {
           textTheme: TextTheme(
             headline2: const TextStyle(
               color: Colors.white,
-              fontSize: 48.0,
+              fontSize: 44.0,
               fontWeight: FontWeight.bold,
             ),
             headline3: const TextStyle(

@@ -193,7 +193,7 @@ class HeroWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "yhat.pub",
+                "YHat.pub",
                 style: Theme.of(context).textTheme.headline2,
                 textAlign: TextAlign.center,
               ),

@@ -171,6 +171,9 @@ class _ModelRunState extends ConsumerState<ModelRunPage> {
   }
 
   Future<void> _scrollToEnd() async {
+    // if (ref.read(provider).data == null) {
+    //   return;
+    // }
     _scrollController.animateTo(_scrollController.position.maxScrollExtent,
         duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
   }

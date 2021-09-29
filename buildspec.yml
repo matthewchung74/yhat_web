@@ -13,9 +13,9 @@ phases:
       - flutter build web --release
   post_build:
     commands:
-      - echo "SERVER_BASE_URL=$SERVER_BASE_URL" > .env
-      - echo "GITHUB_AUTH_URL=$GITHUB_AUTH_URL" >> .env
-      - echo "SENTRY_URL=$SENTRY_URL" >> .env
+      - echo "SERVER_BASE_URL=$SERVER_BASE_URL" > build/web/.env
+      - echo "GITHUB_AUTH_URL=$GITHUB_AUTH_URL" >> build/web/.env
+      - echo "SENTRY_URL=$SENTRY_URL" >> build/web/.env
       - echo Build completed on `date`
 artifacts:
   files:

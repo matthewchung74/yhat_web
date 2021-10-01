@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:inference_app/controller/providers.dart';
-import 'package:inference_app/page/home_page.dart';
-import 'package:inference_app/routing/delegate.dart';
-import 'package:inference_app/routing/parser.dart';
-import 'package:inference_app/routing/stack.dart';
-import 'package:inference_app/routing/configure_nonweb.dart'
-    if (dart.library.html) 'package:inference_app/routing/configure_web.dart';
+import 'package:yhat_app/controller/providers.dart';
+import 'package:yhat_app/page/home_page.dart';
+import 'package:yhat_app/routing/delegate.dart';
+import 'package:yhat_app/routing/parser.dart';
+import 'package:yhat_app/routing/stack.dart';
+import 'package:yhat_app/routing/configure_nonweb.dart'
+    if (dart.library.html) 'package:yhat_app/routing/configure_web.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -82,7 +82,7 @@ class MyNavApp extends ConsumerWidget {
           textTheme: TextTheme(
             headline2: const TextStyle(
               color: Colors.white,
-              fontSize: 48.0,
+              fontSize: 44.0,
               fontWeight: FontWeight.bold,
             ),
             headline3: const TextStyle(

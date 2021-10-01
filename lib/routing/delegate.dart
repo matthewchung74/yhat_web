@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:inference_app/routing/stack.dart';
+import 'package:yhat_app/routing/stack.dart';
 
 class MainRouterDelegate extends RouterDelegate<NavigationStack>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {

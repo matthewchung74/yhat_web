@@ -1,4 +1,4 @@
-import 'package:inference_app/controller/providers.dart';
+import 'package:yhat_app/controller/providers.dart';
 
 class TokenException implements Exception {
   String? cause;

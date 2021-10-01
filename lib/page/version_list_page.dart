@@ -1,9 +1,9 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:inference_app/api/api.dart';
-// import 'package:inference_app/controller/providers.dart';
-// import 'package:inference_app/models/model.dart';
-// import 'package:inference_app/widgets/my_app_bar.dart';
+// import 'package:yhat_app/api/api.dart';
+// import 'package:yhat_app/controller/providers.dart';
+// import 'package:yhat_app/models/model.dart';
+// import 'package:yhat_app/widgets/my_app_bar.dart';
 
 // final versionPageController = StateNotifierProvider.autoDispose
 //     .family<VersionNotifier, AsyncValue<Model>, ModelParameter>((ref, param) {

@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:inference_app/models/build.dart';
-import 'package:inference_app/models/user.dart';
+import 'package:yhat_app/models/build.dart';
+import 'package:yhat_app/models/user.dart';
 import 'package:path/path.dart';
 
 import 'package:json_annotation/json_annotation.dart';

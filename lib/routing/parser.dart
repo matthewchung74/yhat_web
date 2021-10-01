@@ -44,10 +44,10 @@ class MainRouterInformationParser
       } else if (segment == "run_model") {
         var id = uri.pathSegments[i + 1];
         items.add(MaterialPage(
-            key: ValueKey("RunModelPage_$id"),
+            // key: ValueKey("RunModelPage_$id"),
             child: ModelRunPage(
-              modelId: id,
-            )));
+          modelId: id,
+        )));
       } else if (segment == "run_list") {
         var id = uri.pathSegments[i + 1];
         items.add(MaterialPage(

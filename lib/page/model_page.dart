@@ -336,8 +336,8 @@ class _ModelPageState extends ConsumerState<ModelPage>
                     return ElevatedButton(
                         onPressed: () {
                           ref.read(navigationStackProvider).push(MaterialPage(
-                              key: ValueKey("RunModelPage_${model.id}"),
-                              child: ModelRunPage(
+                                  // key: ValueKey("RunModelPage_${model.id}"),
+                                  child: ModelRunPage(
                                 modelId: model.id,
                               )));
                         },

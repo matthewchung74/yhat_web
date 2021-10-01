@@ -96,7 +96,7 @@ class StartBuildNotifier
     _buildProvider.when(
         data: (data) {
           ref.read(navigationStackProvider).push(MaterialPage(
-              key: ValueKey("RunModelPage_${data.modelId}"),
+              // key: ValueKey("RunModelPage_${data.modelId}"),
               child: ModelRunPage(modelId: data.modelId)));
         },
         loading: () {},

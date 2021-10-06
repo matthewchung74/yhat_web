@@ -54,11 +54,11 @@ class Model {
   }
 
   String get homepage {
-    return "http://github.com/$githubUsername/$repository/blob/$branch/$notebook";
+    return "https://github.com/$githubUsername/$repository/blob/$branch/$notebook";
   }
 
   String get userHomepage {
-    return "http://github.com/$githubUsername";
+    return "https://github.com/$githubUsername";
   }
 
   String? get prettyTags {

@@ -421,7 +421,6 @@ class _BuildNbsPage extends ConsumerState<BuildNbsPage> {
                 ],
               );
             }, error: (error, st) {
-              debugger();
               if (error ==
                   "Not able to connect to server, please again try later.") {
                 return SnackBarWidget(

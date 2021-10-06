@@ -110,7 +110,8 @@ class StartBuildNotifier
     try {
       _runningProvider.state = Cancelling;
 
-      final wsUrl = baseUrl.replaceAll("http:", "ws:");
+      String wsUrl =
+          baseUrl.replaceAll("http:", "ws:").replaceAll("https:", "ws:");
       _cancelChannel = WebSocketChannel.connect(
         Uri.parse("$wsUrl/ws"),
       );
@@ -147,7 +148,8 @@ class StartBuildNotifier
     // var channel;
     try {
       _runningProvider.state = Started;
-      final wsUrl = baseUrl.replaceAll("http:", "ws:");
+      String wsUrl =
+          baseUrl.replaceAll("http:", "ws:").replaceAll("https:", "ws:");
       _startChannel = WebSocketChannel.connect(
         Uri.parse("$wsUrl/ws"),
       );

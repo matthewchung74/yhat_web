@@ -571,7 +571,7 @@ class API {
         'commit': commit,
       });
 
-      var uri = Uri.parse('$baseUrl/build');
+      var uri = Uri.parse('$baseUrl/build/');
       String body = await request(
           method: Method.Post, isAuthenticated: true, uri: uri, body: postBody);
       return Build.fromJson(json.decode(body));

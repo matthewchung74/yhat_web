@@ -62,14 +62,20 @@ class ModelEditNotifier extends StateNotifier<AsyncValue<ModelEditResponse>> {
   }
 
   void update(
-      {String? title, String? description, String? releaseNotes}) async {
+      {String? title,
+      String? description,
+      String? credits,
+      String? releaseNotes}) async {
     state = AsyncLoading();
     try {
       ref.read(modelProvider.notifier).update(
           modelId: _model.id,
           title: title,
+          credits: credits,
           description: description,
           releaseNotes: releaseNotes);
+
+      ref.read(navigationStackProvider).pop();
     } catch (e) {
       state = AsyncError(e);
     }
@@ -99,6 +105,10 @@ final provider = StateNotifierProvider.autoDispose<ModelEditNotifier,
   return ModelEditNotifier(ref: ref);
 });
 
+bool _isUrlValid(String url) {
+  return Uri.parse(url).host == '' ? false : true;
+}
+
 class ModelEditPage extends ConsumerStatefulWidget {
   final String modelId;
   const ModelEditPage({required this.modelId});
@@ -110,6 +120,7 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
   final String modelId;
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
+  late TextEditingController _creditsController;
   late TextEditingController _releaseNotesController;
   bool _startedEditing = false;
 
@@ -120,6 +131,7 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
     super.initState();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
+    _creditsController = TextEditingController();
     _releaseNotesController = TextEditingController();
     Future.microtask(() {
       ref.read(provider.notifier).fetchModel(modelId: modelId);
@@ -153,9 +165,11 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
               if (_startedEditing == false &&
                   _titleController.text == "" &&
                   _descriptionController.text == "" &&
+                  _creditsController.text == "" &&
                   _releaseNotesController.text == "") {
                 _titleController.text = data.model.title ?? '';
                 _descriptionController.text = data.model.description ?? '';
+                _creditsController.text = data.model.credits ?? '';
                 _releaseNotesController.text =
                     data.model.activeBuild?.releaseNotes ?? '';
               }
@@ -169,6 +183,13 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
                       (data.model.activeBuild?.releaseNotes ?? '')) {
                 _enabled = true;
               }
+
+              if ((_creditsController.text != '' &&
+                      _creditsController.text != (data.model.credits ?? '')) &&
+                  _isUrlValid(_creditsController.text)) {
+                _enabled = true;
+              }
+
               return CustomScrollView(
                 slivers: [
                   SliverPadding(
@@ -200,7 +221,8 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
                               });
                             },
                             decoration: new InputDecoration(
-                              hintText: 'Default will be notebook file name',
+                              hintText:
+                                  'Default is be notebook file name (optional)',
                             ),
                             keyboardType: TextInputType.multiline,
                             minLines: 1,
@@ -218,6 +240,7 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
                             height: 8,
                           ),
                           TextField(
+                            enableInteractiveSelection: true,
                             controller: _descriptionController,
                             onChanged: (text) {
                               setState(() {
@@ -266,6 +289,41 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
                             minLines: 3,
                             maxLines: 3,
                           ),
+                          SizedBox(
+                            height: 26,
+                          ),
+                          Text(
+                            "Model Credits (URL of model author)",
+                            style: Theme.of(context).textTheme.bodyText2,
+                            textAlign: TextAlign.left,
+                          ),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          TextField(
+                            controller: _creditsController,
+                            onChanged: (text) {
+                              setState(() {
+                                _creditsController.value = TextEditingValue(
+                                    text: text,
+                                    selection: TextSelection(
+                                        baseOffset: text.length,
+                                        extentOffset: text.length));
+                              });
+                            },
+                            decoration: new InputDecoration(
+                              errorText: _creditsController.text != ''
+                                  ? (_isUrlValid(_creditsController.text)
+                                      ? null
+                                      : 'Enter valid url')
+                                  : null,
+                              hintText:
+                                  'Github Url for original model code (optional)',
+                            ),
+                            keyboardType: TextInputType.url,
+                            minLines: 1,
+                            maxLines: 1,
+                          ),
                           SizedBox(height: 26),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -277,6 +335,8 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
                                                 title: _titleController.text,
                                                 description:
                                                     _descriptionController.text,
+                                                credits:
+                                                    _creditsController.text,
                                                 releaseNotes:
                                                     _releaseNotesController
                                                         .text);

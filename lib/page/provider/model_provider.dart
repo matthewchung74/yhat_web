@@ -26,12 +26,14 @@ class ModelNotifier extends StateNotifier<AsyncValue<Model>> {
       {required String modelId,
       String? title,
       String? description,
+      String? credits,
       String? releaseNotes}) async {
     try {
       Model model = await read(apiProvider).updateModel(
           modelId: modelId,
           title: title,
           description: description,
+          credits: credits,
           releaseNotes: releaseNotes);
       state = AsyncData(model);
     } catch (e) {

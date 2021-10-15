@@ -154,8 +154,7 @@ class HomeScrollWidget extends StatelessWidget {
           models: models,
           onModelPressed: ({required Model model}) {
             ref.read(navigationStackProvider).push(MaterialPage(
-                key: ValueKey("ModelPage_${model.id}"),
-                child: ModelPage(
+                    child: ModelPage(
                   modelId: model.id,
                 )));
           },

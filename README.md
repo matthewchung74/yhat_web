@@ -1,4 +1,4 @@
-# inference_app
+# yhat.pub app
 
 A new Flutter project.
 

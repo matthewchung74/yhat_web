@@ -30,10 +30,9 @@ class MainRouterInformationParser
         var modelId = uri.pathSegments[i + 1];
 
         items.add(MaterialPage(
-            key: ValueKey("ModelPage_$modelId"),
             child: ModelPage(
-              modelId: modelId,
-            )));
+          modelId: modelId,
+        )));
       } else if (segment == "profile") {
         var id = uri.pathSegments[i + 1];
         items.add(MaterialPage(
@@ -44,7 +43,6 @@ class MainRouterInformationParser
       } else if (segment == "run_model") {
         var id = uri.pathSegments[i + 1];
         items.add(MaterialPage(
-            // key: ValueKey("RunModelPage_$id"),
             child: ModelRunPage(
           modelId: id,
         )));

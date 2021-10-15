@@ -150,6 +150,7 @@ class API {
       {required String modelId,
       String? title,
       String? description,
+      String? credits,
       String? releaseNotes}) async {
     try {
       Map<String, String> inputs = {};
@@ -158,6 +159,9 @@ class API {
       }
       if (description != null) {
         inputs['description'] = description;
+      }
+      if (credits != null) {
+        inputs['credits'] = credits;
       }
       if (releaseNotes != null) {
         inputs['releaseNotes'] = releaseNotes;

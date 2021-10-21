@@ -459,46 +459,13 @@ class _ModelPageState extends ConsumerState<ModelPage>
                 })
               ],
             ),
-            Row(
-              children: [
-                Text(
-                  "PREDICT SCRIPT: ",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .copyWith(color: Colors.grey.shade600),
-                ),
-                TextButton(
-                    onPressed: () async {
-                      await launchURLBrowser(url: model.homepage);
-                    },
-                    style: Theme.of(context)
-                        .textButtonTheme
-                        .style!
-                        .copyWith(alignment: Alignment.centerLeft),
-                    child: Row(
-                      children: [
-                        Text(
-                          model.user != null ? model.user!.githubUsername! : '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(color: Colors.blue.shade700),
-                        ),
-                        Image(
-                          image: AssetImage('image/github.png'),
-                          width: 30,
-                          height: 30,
-                        ),
-                      ],
-                    )),
-              ],
-            ),
-            if (model.credits != null)
-              Row(
+            FittedBox(
+              fit: BoxFit.contain,
+              alignment: Alignment.centerLeft,
+              child: Row(
                 children: [
                   Text(
-                    "MODEL CREDITS: ",
+                    "PREDICT SCRIPT: ",
                     style: Theme.of(context)
                         .textTheme
                         .bodyText2!
@@ -506,7 +473,7 @@ class _ModelPageState extends ConsumerState<ModelPage>
                   ),
                   TextButton(
                       onPressed: () async {
-                        await launchURLBrowser(url: model.credits!);
+                        await launchURLBrowser(url: model.homepage);
                       },
                       style: Theme.of(context)
                           .textButtonTheme
@@ -514,15 +481,10 @@ class _ModelPageState extends ConsumerState<ModelPage>
                           .copyWith(alignment: Alignment.centerLeft),
                       child: Row(
                         children: [
-                          Image(
-                            image: AssetImage('image/github.png'),
-                            width: 30,
-                            height: 30,
-                          ),
                           Text(
-                            model.credits!.split("/").length > 5
-                                ? model.credits!.split("/")[4]
-                                : '',
+                            model.homepage,
+                            overflow: TextOverflow.clip,
+                            softWrap: false,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1!
@@ -531,6 +493,49 @@ class _ModelPageState extends ConsumerState<ModelPage>
                         ],
                       )),
                 ],
+              ),
+            ),
+            if (model.credits != null)
+              FittedBox(
+                fit: BoxFit.cover,
+                child: Row(
+                  children: [
+                    Text(
+                      "MODEL CREDITS: ",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(color: Colors.grey.shade600),
+                    ),
+                    TextButton(
+                        onPressed: () async {
+                          await launchURLBrowser(url: model.credits!);
+                        },
+                        style: Theme.of(context)
+                            .textButtonTheme
+                            .style!
+                            .copyWith(alignment: Alignment.centerLeft),
+                        child: Row(
+                          children: [
+                            // Image(
+                            //   image: AssetImage('image/github.png'),
+                            //   width: 30,
+                            //   height: 30,
+                            // ),
+                            Text(
+                              model.credits!,
+                              // model.credits!.split("/").length >= 5
+                              //     ? model.credits!.split("/")[4]
+                              //     : '',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(color: Colors.blue.shade700),
+                            ),
+                          ],
+                        )),
+                  ],
+                ),
               ),
           ],
         )

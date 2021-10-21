@@ -443,8 +443,8 @@ class _ModelPageState extends ConsumerState<ModelPage>
                   return TextButton(
                       onPressed: () {
                         ref.read(navigationStackProvider).push(MaterialPage(
-                            key: ValueKey("ProfilePage_${model.user!.id!}"),
-                            child: ProfilePage(
+                                // key: ValueKey("ProfilePage_${model.user!.id!}"),
+                                child: ProfilePage(
                               profileId: model.user!.id!,
                             )));
                       },
@@ -478,6 +478,13 @@ class _ModelPageState extends ConsumerState<ModelPage>
                         .copyWith(alignment: Alignment.centerLeft),
                     child: Row(
                       children: [
+                        Text(
+                          model.user != null ? model.user!.githubUsername! : '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(color: Colors.blue.shade700),
+                        ),
                         Image(
                           image: AssetImage('image/github.png'),
                           width: 30,
@@ -491,7 +498,7 @@ class _ModelPageState extends ConsumerState<ModelPage>
               Row(
                 children: [
                   Text(
-                    "CREDITS: ",
+                    "MODEL CREDITS: ",
                     style: Theme.of(context)
                         .textTheme
                         .bodyText2!
@@ -511,6 +518,15 @@ class _ModelPageState extends ConsumerState<ModelPage>
                             image: AssetImage('image/github.png'),
                             width: 30,
                             height: 30,
+                          ),
+                          Text(
+                            model.credits!.split("/").length > 5
+                                ? model.credits!.split("/")[4]
+                                : '',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(color: Colors.blue.shade700),
                           ),
                         ],
                       )),

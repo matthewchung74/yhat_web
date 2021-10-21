@@ -99,7 +99,7 @@ AppBar myAppBar(
         }
       },
       child: Text(
-        title != null ? title : "yhat.pub",
+        title != null ? title : "YHat.pub",
         style: titleStyle,
         overflow: TextOverflow.clip,
         maxLines: 1,

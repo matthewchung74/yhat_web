@@ -83,6 +83,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   Widget build(BuildContext context) {
     final controller = ref.watch(provider);
     final isMe = ref.read(meController).id == profileId ? true : false;
+    final hasEarlyAccess = ref.read(meController).earlyAccess != null
+        ? ref.read(meController).earlyAccess!
+        : false;
     return Scaffold(
         appBar: myAppBar(context: context, ref: ref),
         body: Container(
@@ -93,6 +96,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   user: data.user,
                   models: data.models,
                   isMe: isMe,
+                  hasEarlyAccess: hasEarlyAccess,
                 );
               },
               loading: () {
@@ -114,9 +118,14 @@ class ProfileScrollWidget extends StatelessWidget {
   final User user;
   final List<Model> models;
   final bool isMe;
+  final bool hasEarlyAccess;
 
   const ProfileScrollWidget(
-      {Key? key, required this.user, required this.models, required this.isMe})
+      {Key? key,
+      required this.user,
+      required this.models,
+      required this.isMe,
+      required this.hasEarlyAccess})
       : super(key: key);
 
   @override
@@ -124,8 +133,12 @@ class ProfileScrollWidget extends StatelessWidget {
     return CustomScrollView(slivers: [
       SliverPadding(
           padding: const EdgeInsets.all(20),
-          sliver:
-              SliverToBoxAdapter(child: HeaderWidget(user: user, isMe: isMe))),
+          sliver: SliverToBoxAdapter(
+              child: HeaderWidget(
+            user: user,
+            isMe: isMe,
+            hasEarlyAccess: hasEarlyAccess,
+          ))),
       SliverToBoxAdapter(child: Divider()),
       SliverPadding(
           padding: const EdgeInsets.all(20),
@@ -139,8 +152,13 @@ class ProfileScrollWidget extends StatelessWidget {
 class HeaderWidget extends ConsumerWidget {
   final User user;
   final bool isMe;
+  final bool hasEarlyAccess;
 
-  const HeaderWidget({Key? key, required this.user, required this.isMe})
+  const HeaderWidget(
+      {Key? key,
+      required this.user,
+      required this.isMe,
+      required this.hasEarlyAccess})
       : super(key: key);
 
   @override
@@ -168,7 +186,7 @@ class HeaderWidget extends ConsumerWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            if (isMe)
+            if (isMe && hasEarlyAccess)
               Flexible(
                   flex: 1,
                   child: ElevatedButton(
@@ -191,6 +209,50 @@ class HeaderWidget extends ConsumerWidget {
                                       fontSize: calculatedButtonFontSize)),
                         ),
                       ))),
+            if (isMe && !hasEarlyAccess)
+              Flexible(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                          onPressed: null,
+                          style: Theme.of(context)
+                              .elevatedButtonTheme
+                              .style!
+                              .copyWith(
+                                  backgroundColor:
+                                      MaterialStateProperty.resolveWith(
+                                          (states) => Colors.grey.shade400)),
+                          child: SizedBox(
+                            width: 220,
+                            height: 40,
+                            child: Center(
+                              child: Text("Upload Model",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline5!
+                                      .copyWith(
+                                          color: Colors.white,
+                                          fontSize: calculatedButtonFontSize)),
+                            ),
+                          )),
+                      TextButton(
+                          onPressed: () async {
+                            await launchURLBrowser(
+                                url: "https://github.com/yhatpub/yhatpub");
+                          },
+                          style: Theme.of(context).textButtonTheme.style,
+                          child: Text(
+                            "beta access required",
+                            textAlign: TextAlign.right,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(color: Colors.blue.shade700),
+                            overflow: TextOverflow.ellipsis,
+                          ))
+                    ],
+                  )),
           ],
         ),
         Row(
@@ -207,18 +269,15 @@ class HeaderWidget extends ConsumerWidget {
                   await launchURLBrowser(url: user.htmlUrl!);
                 },
                 style: Theme.of(context).textButtonTheme.style,
-                child: SizedBox(
-                  width: screenWidth * 0.7,
-                  child: Text(
-                    user.htmlUrl!,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    softWrap: false,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(color: Colors.blue.shade700),
-                  ),
+                child: Text(
+                  user.htmlUrl!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(color: Colors.blue.shade700),
                 )),
           ],
         ),

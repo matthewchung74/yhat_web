@@ -517,16 +517,8 @@ class _ModelPageState extends ConsumerState<ModelPage>
                             .copyWith(alignment: Alignment.centerLeft),
                         child: Row(
                           children: [
-                            // Image(
-                            //   image: AssetImage('image/github.png'),
-                            //   width: 30,
-                            //   height: 30,
-                            // ),
                             Text(
                               model.credits!,
-                              // model.credits!.split("/").length >= 5
-                              //     ? model.credits!.split("/")[4]
-                              //     : '',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!

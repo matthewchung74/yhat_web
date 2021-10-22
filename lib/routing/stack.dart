@@ -9,7 +9,7 @@ class NavigationStack with ChangeNotifier {
   List<MaterialPage> _items;
   MeNotifier _meNotifier;
 
-  List<String> authPages = ["RunModelPage"];
+  List<String> authPages = ["ModelRunPage", "ModelEditPage", "BuildNbsPage"];
 
   NavigationStack(List<MaterialPage> items, MeNotifier _meNotifier)
       : _items = items,
@@ -22,25 +22,19 @@ class NavigationStack with ChangeNotifier {
   }
 
   void push(MaterialPage item) {
-    String key = item.key != null ? item.key!.toString() : '';
-    key = item.key.toString().replaceAll("[<'", "");
-    key = key.replaceAll("'>]", "");
-    key = key.split("_")[0];
-    if (authPages.contains(key) && !_meNotifier.isLoggedIn()) {
+    if (authPages.contains(item.child.toString()) &&
+        !_meNotifier.isLoggedIn()) {
       return push(MaterialPage(
           key: ValueKey("SignIn"), child: SignInPage(referrer: item)));
     }
 
-    // for (MaterialPage map in _items) {
-    //   if (map.key.toString() == item.key.toString()) {
-    //     _items.remove(map);
-    //   }
+    // if (key == '') {
+    _items.add(item);
+    notifyListeners();
+    // } else if (_items.isEmpty || _items.last.key != item.key) {
+    //   _items.add(item);
+    //   notifyListeners();
     // }
-
-    if (_items.isEmpty || _items.last.key != item.key) {
-      _items.add(item);
-      notifyListeners();
-    }
   }
 
   Page? pop() {

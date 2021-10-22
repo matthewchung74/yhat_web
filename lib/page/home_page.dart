@@ -154,8 +154,7 @@ class HomeScrollWidget extends StatelessWidget {
           models: models,
           onModelPressed: ({required Model model}) {
             ref.read(navigationStackProvider).push(MaterialPage(
-                key: ValueKey("ModelPage_${model.id}"),
-                child: ModelPage(
+                    child: ModelPage(
                   modelId: model.id,
                 )));
           },
@@ -192,16 +191,16 @@ class HeroWidget extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "YHat.pub",
-                style: Theme.of(context).textTheme.headline2,
-                textAlign: TextAlign.center,
-              ),
+              Image(
+                  image: AssetImage('image/logo_light.png'),
+                  fit: BoxFit.fitWidth,
+                  height: 80,
+                  width: 400), // Text(
               SizedBox(
                 height: 8,
               ),
               Text(
-                "Running your models with a few taps.",
+                "(beta) Running your models with a few taps.",
                 style: Theme.of(context).textTheme.headline4,
                 textAlign: TextAlign.center,
               ),
@@ -217,7 +216,10 @@ class HeroWidget extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await launchURLBrowser(
+                            url: "https://github.com/yhatpub/yhatpub");
+                      },
                       child: Text(
                         "learn more",
                         style: Theme.of(context)

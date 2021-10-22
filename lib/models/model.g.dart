@@ -24,6 +24,7 @@ Model _$ModelFromJson(Map<String, dynamic> json) {
         ? null
         : Build.fromJson(json['active_build'] as Map<String, dynamic>),
     description: json['description'] as String?,
+    credits: json['credits'] as String?,
     tags: json['tags'] as List<dynamic>?,
     status: _$enumDecode(_$ModelStatusEnumMap, json['status']),
     updatedAt: json['updated_at'] == null
@@ -45,6 +46,7 @@ Map<String, dynamic> _$ModelToJson(Model instance) => <String, dynamic>{
       'user_id': instance.userId,
       'title': instance.title,
       'description': instance.description,
+      'credits': instance.credits,
       'user': instance.user?.toJson(),
       'active_build_id': instance.activeBuildId,
       'active_build': instance.activeBuild?.toJson(),

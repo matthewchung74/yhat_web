@@ -272,18 +272,8 @@ class _SignInWidgetState extends State<SignInWidget> {
           ),
           ElevatedButton(
               onPressed: () {
-                // githubSignIn(referrer);
-
                 githubSignIn();
               },
-              // onPressed: () {
-              // String launchUrl =
-              //     'https://github.com/login/oauth/authorize?client_id=83c02f424e713d273c5b&scope=user%20repo';
-              // if (referrer != null) {
-              //   launchUrl = '$launchUrl&redirect_uri=$referrer';
-              // }
-              // launchURLBrowser(url: launchUrl, target: '_self');
-              // },
               style: ElevatedButton.styleFrom(primary: Colors.white),
               child: SizedBox(
                 height: 40,

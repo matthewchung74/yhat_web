@@ -20,6 +20,7 @@ class Model {
   final String userId;
   final String? title;
   final String? description;
+  final String? credits;
   final User? user;
   final String? activeBuildId;
   final Build? activeBuild;
@@ -41,6 +42,7 @@ class Model {
     this.activeBuildId,
     this.activeBuild,
     this.description,
+    this.credits,
     this.tags,
     required this.status,
     this.updatedAt,

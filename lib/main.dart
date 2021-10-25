@@ -12,6 +12,7 @@ import 'package:yhat_app/routing/configure_nonweb.dart'
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+// import 'package:firebase_core/firebase_core.dart';
 
 final navigationStackProvider =
     ChangeNotifierProvider((ref) => NavigationStack([
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
 final provider = FutureProvider<void>((ref) async {
   await ref.read(meController.notifier).load();
   await ref.read(referrerController.notifier).load();
+  // await Firebase.initializeApp();
 });
 
 class LoadMeApp extends ConsumerWidget {
@@ -76,7 +78,6 @@ class MyNavApp extends ConsumerWidget {
               iconTheme: const IconThemeData(color: Colors.white)),
           scaffoldBackgroundColor: Color.fromRGBO(243, 243, 246, 1),
           primaryColor: Colors.white,
-          // accentColor: Color(0xFF2AAF61),
           iconTheme: const IconThemeData(color: Colors.white),
           fontFamily: GoogleFonts.montserrat().fontFamily,
           textTheme: TextTheme(

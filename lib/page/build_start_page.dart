@@ -61,11 +61,25 @@ class StartBuildNotifier
   StartBuildNotifier({required this.ref, required this.buildId})
       : super(AsyncLoading());
 
-  final String buildId;
+  String buildId;
   final AutoDisposeProviderRefBase ref;
   WebSocketChannel? _startChannel;
   WebSocketChannel? _cancelChannel;
-  void start() async {
+  void restart() async {
+    final build = await ref.read(buildProvider(buildId).future);
+
+    Build newBuild = await ref.read(apiProvider).createBuild(
+        githubUsername: build.githubUsername,
+        repository: build.repository,
+        branch: build.branch,
+        notebook: build.notebook,
+        commit: '');
+    buildId = newBuild.id;
+
+    await start();
+  }
+
+  Future<void> start() async {
     if (!mounted) {
       return;
     }
@@ -95,9 +109,9 @@ class StartBuildNotifier
     final _buildProvider = ref.watch(buildProvider(buildId));
     _buildProvider.when(
         data: (data) {
-          ref.read(navigationStackProvider).push(MaterialPage(
-              // key: ValueKey("RunModelPage_${data.modelId}"),
-              child: ModelRunPage(modelId: data.modelId)));
+          ref
+              .read(navigationStackProvider)
+              .push(MaterialPage(child: ModelRunPage(modelId: data.modelId)));
         },
         loading: () {},
         error: (err, stack) => {});
@@ -144,6 +158,7 @@ class StartBuildNotifier
           AsyncError("Not able to connect to server, please again try later.");
       return;
     }
+
     final _runningProvider = ref.read(runningProvider);
     // var channel;
     try {
@@ -243,7 +258,7 @@ class _BuildStartPage extends ConsumerState<BuildStartPage> {
         runningFunction = notifier.start;
       } else if (running == Error) {
         runningText = "Retry Build";
-        runningFunction = notifier.start;
+        runningFunction = notifier.restart;
       } else if (running == Cancelling) {
         runningText = "Cancel Build";
         runningFunction = null;
@@ -429,55 +444,6 @@ class _BuildStartPage extends ConsumerState<BuildStartPage> {
               ),
               Divider(),
               _buildBodyHeaderWidget(),
-              // _buildProvider.when(data: (data) {
-              //   return _buildBodyHeaderWidget();
-              // }, loading: () {
-              //   return _buildBodyHeaderWidget();
-              // }, error: (error, st) {
-              //   return Container();
-              // }),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Padding(
-              //       padding: const EdgeInsets.all(20.0),
-              //       child: Text("         "),
-              //     ),
-              //     Padding(
-              //       padding: const EdgeInsets.all(20.0),
-              //       child: Text("BUILD LOG",
-              //           style: Theme.of(context)
-              //               .textTheme
-              //               .headline5!
-              //               .copyWith(color: Color.fromRGBO(26, 36, 54, 1))),
-              //     ),
-              //     Padding(
-              //       padding: const EdgeInsets.all(20.0),
-              //       child: TextButton(
-              //           onPressed: () {
-              //             _downloadLog();
-              //           },
-              //           style: Theme.of(context)
-              //               .textButtonTheme
-              //               .style!
-              //               .copyWith(
-              //                   padding: MaterialStateProperty.all<EdgeInsets>(
-              //                       EdgeInsets.fromLTRB(0, 0, 0, 0))),
-              //           child: Align(
-              //             alignment: Alignment.centerRight,
-              //             child: Text(
-              //               'EXPORT',
-              //               textAlign: TextAlign.right,
-              //               style: Theme.of(context)
-              //                   .textTheme
-              //                   .headline5!
-              //                   .copyWith(color: Colors.blue.shade700),
-              //               overflow: TextOverflow.ellipsis,
-              //             ),
-              //           )),
-              //     )
-              //   ],
-              // ),
               _buildProvider.when(data: (data) {
                 if (data.buildLog != null) {
                   terminal.write(data.buildLog!);

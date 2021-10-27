@@ -564,7 +564,7 @@ class API {
       required String repository,
       required String branch,
       required String notebook,
-      required String commit}) async {
+      String commit = ''}) async {
     try {
       notebook = notebook.replaceAll("/", "|");
 

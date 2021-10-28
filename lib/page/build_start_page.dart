@@ -21,18 +21,20 @@ String baseUrl = env['SERVER_BASE_URL']!;
 
 const String NotStarted = "NotStarted";
 const String Started = "Started";
+const String Restarting = "Restarting";
 const String Running = "Running";
 const String Error = "Error";
 const String Cancelled = "Cancelled";
 const String Cancelling = "Cancelling";
 const String Finished = "Finished";
+const String AnotherBrowser = "AnotherBrowser";
 
 final runningProvider = StateProvider.autoDispose<String>((ref) {
   return NotStarted;
 });
 
 final buildProvider =
-    FutureProvider.autoDispose.family<Build, String>((ref, buildId) async {
+    FutureProvider.family<Build, String>((ref, buildId) async {
   Build build = await ref.read(apiProvider).fetchBuild(buildId: buildId);
 
   if (build.status == BuildStatus.Finished ||
@@ -45,6 +47,7 @@ final buildProvider =
   } else if (build.status == BuildStatus.Started) {
     build.buildLog =
         " \r\n\r\nBuilding started in another browser, we will send an email to your Github email when it is done. \r\n";
+    ref.read(runningProvider).state = AnotherBrowser;
   }
 
   return build;
@@ -65,7 +68,12 @@ class StartBuildNotifier
   final AutoDisposeProviderRefBase ref;
   WebSocketChannel? _startChannel;
   WebSocketChannel? _cancelChannel;
+
   void restart() async {
+    state = AsyncLoading();
+
+    ref.read(runningProvider).state = Restarting;
+
     final build = await ref.read(buildProvider(buildId).future);
 
     Build newBuild = await ref.read(apiProvider).createBuild(
@@ -89,7 +97,8 @@ class StartBuildNotifier
     try {
       if (runningProviderState == NotStarted ||
           runningProviderState == Cancelled ||
-          runningProviderState == Error) {
+          runningProviderState == Error ||
+          runningProviderState == Restarting) {
         await startBuild();
       } else if (runningProviderState == Running) {
         await cancelBuild();
@@ -259,12 +268,18 @@ class _BuildStartPage extends ConsumerState<BuildStartPage> {
       } else if (running == Error) {
         runningText = "Retry Build";
         runningFunction = notifier.restart;
+      } else if (running == Restarting) {
+        runningText = "Retry Build";
+        runningFunction = null;
       } else if (running == Cancelling) {
         runningText = "Cancel Build";
         runningFunction = null;
       } else if (running == Finished) {
         runningText = "Run Model";
         runningFunction = notifier.start;
+      } else if (running == AnotherBrowser) {
+        runningText = "";
+        runningFunction = null;
       }
     }
 

@@ -174,7 +174,6 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
                     data.model.activeBuild?.releaseNotes ?? '';
               }
 
-              _startedEditing = true;
               bool _enabled = false;
               if (_titleController.text != (data.model.title ?? '') ||
                   _descriptionController.text !=
@@ -213,11 +212,7 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
                             controller: _titleController,
                             onChanged: (text) {
                               setState(() {
-                                _titleController.value = TextEditingValue(
-                                    text: text,
-                                    selection: TextSelection(
-                                        baseOffset: text.length,
-                                        extentOffset: text.length));
+                                _startedEditing = true;
                               });
                             },
                             decoration: new InputDecoration(
@@ -244,11 +239,7 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
                             controller: _descriptionController,
                             onChanged: (text) {
                               setState(() {
-                                _descriptionController.value = TextEditingValue(
-                                    text: text,
-                                    selection: TextSelection(
-                                        baseOffset: text.length,
-                                        extentOffset: text.length));
+                                _startedEditing = true;
                               });
                             },
                             decoration: new InputDecoration(
@@ -273,12 +264,7 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
                             controller: _releaseNotesController,
                             onChanged: (text) {
                               setState(() {
-                                _releaseNotesController.value =
-                                    TextEditingValue(
-                                        text: text,
-                                        selection: TextSelection(
-                                            baseOffset: text.length,
-                                            extentOffset: text.length));
+                                _startedEditing = true;
                               });
                             },
                             decoration: new InputDecoration(
@@ -304,11 +290,7 @@ class _ModelEditPage extends ConsumerState<ModelEditPage> {
                             controller: _creditsController,
                             onChanged: (text) {
                               setState(() {
-                                _creditsController.value = TextEditingValue(
-                                    text: text,
-                                    selection: TextSelection(
-                                        baseOffset: text.length,
-                                        extentOffset: text.length));
+                                _startedEditing = true;
                               });
                             },
                             decoration: new InputDecoration(

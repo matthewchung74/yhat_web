@@ -83,9 +83,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
   Widget build(BuildContext context) {
     final controller = ref.watch(provider);
     final isMe = ref.read(meController).id == profileId ? true : false;
-    final hasEarlyAccess = ref.read(meController).earlyAccess != null
-        ? ref.read(meController).earlyAccess!
-        : false;
+    // final hasEarlyAccess = ref.read(meController).earlyAccess != null
+    //     ? ref.read(meController).earlyAccess!
+    //     : false;
     return Scaffold(
         appBar: myAppBar(context: context, ref: ref),
         body: Container(
@@ -96,7 +96,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage> {
                   user: data.user,
                   models: data.models,
                   isMe: isMe,
-                  hasEarlyAccess: hasEarlyAccess,
+                  // hasEarlyAccess: hasEarlyAccess,
                 );
               },
               loading: () {
@@ -118,15 +118,15 @@ class ProfileScrollWidget extends StatelessWidget {
   final User user;
   final List<Model> models;
   final bool isMe;
-  final bool hasEarlyAccess;
+  // final bool hasEarlyAccess;
 
-  const ProfileScrollWidget(
-      {Key? key,
-      required this.user,
-      required this.models,
-      required this.isMe,
-      required this.hasEarlyAccess})
-      : super(key: key);
+  const ProfileScrollWidget({
+    Key? key,
+    required this.user,
+    required this.models,
+    required this.isMe,
+    // required this.hasEarlyAccess
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +137,7 @@ class ProfileScrollWidget extends StatelessWidget {
               child: HeaderWidget(
             user: user,
             isMe: isMe,
-            hasEarlyAccess: hasEarlyAccess,
+            // hasEarlyAccess: hasEarlyAccess,
           ))),
       SliverToBoxAdapter(child: Divider()),
       SliverPadding(
@@ -152,14 +152,14 @@ class ProfileScrollWidget extends StatelessWidget {
 class HeaderWidget extends ConsumerWidget {
   final User user;
   final bool isMe;
-  final bool hasEarlyAccess;
+  // final bool hasEarlyAccess;
 
-  const HeaderWidget(
-      {Key? key,
-      required this.user,
-      required this.isMe,
-      required this.hasEarlyAccess})
-      : super(key: key);
+  const HeaderWidget({
+    Key? key,
+    required this.user,
+    required this.isMe,
+    // required this.hasEarlyAccess
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -168,6 +168,7 @@ class HeaderWidget extends ConsumerWidget {
         (32 * screenWidth / 800) > 32 ? 32 : (32 * screenWidth / 800);
     double calculatedButtonFontSize =
         (20 * screenWidth / 600) > 20 ? 20 : 20 * screenWidth / 800;
+    bool hasEarlyAccess = user.earlyAccess != null ? user.earlyAccess! : false;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

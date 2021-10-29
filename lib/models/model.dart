@@ -55,6 +55,18 @@ class Model {
     return basename.toUpperCase();
   }
 
+  String? get prettyCreditUsername {
+    if (this.credits == null) return null;
+
+    Uri uri = Uri.parse(this.credits!);
+    if (uri.isAbsolute) {
+      if (uri.host.contains("github.com") && (uri.pathSegments.length >= 5)) {
+        return uri.pathSegments[0];
+      }
+    }
+    return this.credits;
+  }
+
   String get homepage {
     return "https://github.com/$githubUsername/$repository/blob/$branch/$notebook";
   }

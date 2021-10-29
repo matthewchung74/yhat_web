@@ -47,6 +47,7 @@ class AuthClient extends http.BaseClient {
 }
 
 String formattedDate(DateTime date) {
+  date = date.toLocal();
   DateTime now = DateTime.now();
   if (date.year == now.year && date.month == now.month && date.day == now.day) {
     String time = DateFormat().add_jm().format(date);
@@ -563,7 +564,7 @@ class API {
       required String repository,
       required String branch,
       required String notebook,
-      required String commit}) async {
+      String commit = ''}) async {
     try {
       notebook = notebook.replaceAll("/", "|");
 

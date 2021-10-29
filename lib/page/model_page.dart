@@ -220,21 +220,22 @@ class _ModelPageState extends ConsumerState<ModelPage>
             SizedBox(
               height: 4,
             ),
-            ...model.activeBuild!.inputJson!.keys.toList().map((e) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SelectableText("Input Name: $e",
-                      style: Theme.of(context).textTheme.bodyText2!),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  SelectableText(
-                      "Input Type: ${model.activeBuild!.inputJson![e]}",
-                      style: Theme.of(context).textTheme.bodyText2!),
-                ],
-              );
-            }),
+            SelectableText("${model.activeBuild!.inputJson}"),
+            // ...model.activeBuild!.inputJson!.keys.toList().map((e) {
+            //   return Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       SelectableText("Input Name: $e",
+            //           style: Theme.of(context).textTheme.bodyText2!),
+            //       SizedBox(
+            //         height: 4,
+            //       ),
+            //       SelectableText(
+            //           "Input Type: ${model.activeBuild!.inputJson![e]}",
+            //           style: Theme.of(context).textTheme.bodyText2!),
+            //     ],
+            //   );
+            // }),
             SizedBox(
               height: 20,
             ),
@@ -248,18 +249,20 @@ class _ModelPageState extends ConsumerState<ModelPage>
             SizedBox(
               height: 4,
             ),
-            ...model.activeBuild!.outputJson!.keys.toList().map((e) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 4,
-                  ),
-                  Text("Output Type: ${model.activeBuild!.outputJson![e]}",
-                      style: Theme.of(context).textTheme.bodyText2!),
-                ],
-              );
-            }),
+            SelectableText("${model.activeBuild!.outputJson}"),
+
+            // ...model.activeBuild!.outputJson!.keys.toList().map((e) {
+            //   return Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       SizedBox(
+            //         height: 4,
+            //       ),
+            //       Text("Output Type: ${model.activeBuild!.outputJson![e]}",
+            //           style: Theme.of(context).textTheme.bodyText2!),
+            //     ],
+            //   );
+            // }),
             SizedBox(
               height: 16,
             ),
@@ -443,7 +446,6 @@ class _ModelPageState extends ConsumerState<ModelPage>
                   return TextButton(
                       onPressed: () {
                         ref.read(navigationStackProvider).push(MaterialPage(
-                                // key: ValueKey("ProfilePage_${model.user!.id!}"),
                                 child: ProfilePage(
                               profileId: model.user!.id!,
                             )));
@@ -482,7 +484,10 @@ class _ModelPageState extends ConsumerState<ModelPage>
                       child: Row(
                         children: [
                           Text(
-                            model.homepage,
+                            model.user != null
+                                ? model.user!.githubUsername!
+                                : '',
+                            // model.homepage,
                             overflow: TextOverflow.clip,
                             softWrap: false,
                             style: Theme.of(context)
@@ -518,7 +523,7 @@ class _ModelPageState extends ConsumerState<ModelPage>
                         child: Row(
                           children: [
                             Text(
-                              model.credits!,
+                              model.prettyCreditUsername ?? '',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyText1!

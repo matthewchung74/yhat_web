@@ -262,7 +262,10 @@ class _BuildStartPage extends ConsumerState<BuildStartPage> {
       } else if (running == Running) {
         runningText = "Cancel Build";
         runningFunction = notifier.start;
-      } else if (running == Cancelled || running == NotStarted) {
+      } else if (running == Cancelled) {
+        runningText = "Retry Build";
+        runningFunction = notifier.restart;
+      } else if (running == NotStarted) {
         runningText = "Start Build";
         runningFunction = notifier.start;
       } else if (running == Error) {

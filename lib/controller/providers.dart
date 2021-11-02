@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yhat_app/api/api.dart';
 import 'package:yhat_app/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:developer';
 
 final apiProvider = Provider<API>((ref) => API(read: ref.read));
 
@@ -28,8 +29,12 @@ class MeNotifier extends StateNotifier<User> {
   }
 
   Future<void> load() async {
+    print('load');
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    print('load:SharedPreferences');
     if (prefs.getString('me') != null) {
+      print('load: me ${prefs.getString('me')}');
+
       User user = User.fromJson(json.decode(prefs.getString('me')!));
       if (user.token == null) {
         prefs.remove('me');
@@ -41,6 +46,8 @@ class MeNotifier extends StateNotifier<User> {
           state = user;
         }
       }
+    } else {
+      print('load:no me');
     }
   }
 
@@ -70,7 +77,9 @@ class ReferrerNotifier extends StateNotifier<String?> {
     if (state == null) {
       await remove();
     } else {
-      prefs.setString('login_referrer', state!);
+      print("persist: $state");
+      await prefs.setString('login_referrer', state!);
+      print("persisted");
     }
   }
 

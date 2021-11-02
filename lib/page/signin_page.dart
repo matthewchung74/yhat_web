@@ -9,6 +9,8 @@ import 'package:yhat_app/widgets/my_app_bar.dart';
 import 'package:yhat_app/widgets/snack_bar.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'dart:developer';
+
 import '../main.dart';
 
 final signinController = StateNotifierProvider.autoDispose
@@ -54,7 +56,7 @@ class SigninNotifier extends StateNotifier<AsyncValue<User>?> {
       user.token = token;
       read(meController.notifier).state = user;
       read(meController.notifier).persist();
-// todo need to redirect here
+
       state = AsyncData(user);
     } catch (e) {
       state = AsyncError(e);
@@ -80,6 +82,8 @@ class SignInPage extends ConsumerWidget {
 
     void githubSignIn() {
       String launchUrl = env['GITHUB_AUTH_URL']!;
+      print('signin githubSignIn $launchUrl');
+      print('signin referrer ${referrer ?? "null"}');
 
       if (referrer != null) {
         if (referrer!.child is ModelRunPage) {
@@ -87,6 +91,8 @@ class SignInPage extends ConsumerWidget {
           final newUrl = "${Uri.base.origin}/run_model/${runModelPage.modelId}";
           final provider = ref.read(referrerController.notifier);
           provider.url = newUrl;
+          print('signin newUrl $newUrl');
+
           provider.persist();
         }
       }
@@ -199,7 +205,6 @@ class _SignInWidgetState extends State<SignInWidget> {
     this.message,
     this.snackBarStatus,
     required this.emailController,
-    // this.referrer});
   });
 
   final Function({required String email}) emailSignIn;
@@ -209,7 +214,6 @@ class _SignInWidgetState extends State<SignInWidget> {
   final String? message;
   final SnackBarStatus? snackBarStatus;
   final TextEditingController emailController;
-  // final String? referrer;
 
   @override
   void initState() {

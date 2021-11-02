@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:yhat_app/controller/providers.dart';
+import 'package:yhat_app/page/build_nbs_page.dart';
 import 'package:yhat_app/page/home_page.dart';
+import 'package:yhat_app/page/model_edit_page.dart';
+import 'package:yhat_app/page/model_run_page.dart';
 import 'package:yhat_app/page/signin_page.dart';
 import 'dart:developer';
 
@@ -9,8 +12,6 @@ enum PushStatus { Success, NotLoggedIn }
 class NavigationStack with ChangeNotifier {
   List<MaterialPage> _items;
   MeNotifier _meNotifier;
-
-  List<String> authPages = ["ModelRunPage", "ModelEditPage", "BuildNbsPage"];
 
   NavigationStack(List<MaterialPage> items, MeNotifier _meNotifier)
       : _items = items,
@@ -23,10 +24,14 @@ class NavigationStack with ChangeNotifier {
   }
 
   void push(MaterialPage item) {
-    print('push $authPages ${item.child.runtimeType.toString()}');
+    // print('push $authPages ${item.child.runtimeType.toString()}');
     print('push login ${_meNotifier.isLoggedIn()}');
-    if (authPages.contains(item.child.runtimeType.toString()) &&
+    if ((item.child is ModelRunPage ||
+            item.child is ModelEditPage ||
+            item.child is BuildNbsPage) &&
         !_meNotifier.isLoggedIn()) {
+      // if (authPages.contains(item.child.runtimeType.toString()) &&
+      //     !_meNotifier.isLoggedIn()) {
       return push(MaterialPage(
           key: ValueKey("SignIn"), child: SignInPage(referrer: item)));
     }

@@ -106,6 +106,12 @@ class RunCard extends StatelessWidget {
                     width: imageWidth,
                     height: imageWidth,
                   ),
+                if (jsonType[runJsonKey] == null && runJsonKey == 'error')
+                  Text(runJson[runJsonKey],
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(color: Colors.red))
               ],
             ),
           ),

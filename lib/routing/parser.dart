@@ -89,6 +89,9 @@ class MainRouterInformationParser
 
     if (items.length == 0) {
       items.add(MaterialPage(key: ValueKey("HomePage"), child: HomePage()));
+    } else if (items.length == 1 && !(items[0].child is HomePage)) {
+      items.insert(
+          0, MaterialPage(key: ValueKey("HomePage"), child: HomePage()));
     }
 
     return NavigationStack(items, ref.read(meController.notifier));

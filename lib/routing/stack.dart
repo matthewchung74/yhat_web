@@ -23,9 +23,9 @@ class NavigationStack with ChangeNotifier {
   }
 
   void push(MaterialPage item) {
-    print('push $authPages ${item.child.toString()}');
+    print('push $authPages ${item.child.runtimeType.toString()}');
     print('push login ${_meNotifier.isLoggedIn()}');
-    if (authPages.contains(item.child.toString()) &&
+    if (authPages.contains(item.child.runtimeType.toString()) &&
         !_meNotifier.isLoggedIn()) {
       return push(MaterialPage(
           key: ValueKey("SignIn"), child: SignInPage(referrer: item)));

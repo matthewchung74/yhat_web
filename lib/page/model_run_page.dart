@@ -53,7 +53,7 @@ class RunModelNotifier
 
       List responses = await Future.wait([
         read(apiProvider).fetchModel(modelId: modelId),
-        read(apiProvider).fetchRunList(modelId: modelId, userId: me.id)
+        read(apiProvider).fetchRunList(modelId: modelId)
       ]);
 
       _model = responses[0];

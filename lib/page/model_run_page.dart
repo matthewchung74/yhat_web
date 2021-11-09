@@ -46,11 +46,6 @@ class RunModelNotifier
       {required String modelId, int offet = 0, int length = 0}) async {
     state = AsyncLoading();
     try {
-      if (!read(meController.notifier).isLoggedIn()) {
-        throw "Not able to sign in, please try again.";
-      }
-      User me = read(meController);
-
       List responses = await Future.wait([
         read(apiProvider).fetchModel(modelId: modelId),
         read(apiProvider).fetchRunList(modelId: modelId)
@@ -244,6 +239,7 @@ class _ModelRunState extends ConsumerState<ModelRunPage> {
     Model? model = ref.read(provider.notifier)._model;
     List<Run> runs = ref.read(provider.notifier)._runs;
     List<Run> runsCopy = List.from(runs);
+
     if (ref.read(provider.notifier).hasNewResult()) {
       _reset();
     } else if (_inputs.length > 0) {
@@ -251,6 +247,7 @@ class _ModelRunState extends ConsumerState<ModelRunPage> {
           buildId: model!.activeBuildId!,
           outputJson: {},
           inputJson: _inputs,
+          githubUsername: ref.read(meController).githubUsername ?? "anonymous",
           id: '',
           modelId: modelId,
           createdAt: DateTime.now()));

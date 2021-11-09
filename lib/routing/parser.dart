@@ -30,25 +30,29 @@ class MainRouterInformationParser
         var modelId = uri.pathSegments[i + 1];
 
         items.add(MaterialPage(
+            // name: "model_page",
             child: ModelPage(
           modelId: modelId,
         )));
       } else if (segment == "profile") {
         var id = uri.pathSegments[i + 1];
         items.add(MaterialPage(
-            key: ValueKey("ProfilePage_$id"),
+            // name: "profile_page",
+            // key: ValueKey("ProfilePage_$id"),
             child: ProfilePage(
-              profileId: id,
-            )));
+          profileId: id,
+        )));
       } else if (segment == "run_model") {
         var id = uri.pathSegments[i + 1];
         items.add(MaterialPage(
+            // name: "model_run_page",
             child: ModelRunPage(
           modelId: id,
         )));
       } else if (segment == "run_list") {
         var id = uri.pathSegments[i + 1];
         items.add(MaterialPage(
+            // name: "run_list_page",
             key: ValueKey("RunListPage_$id"),
             child: RunListPage(
               modelId: id,
@@ -59,20 +63,27 @@ class MainRouterInformationParser
           } else {
             String code = uri.queryParameters['code']!;
             items.add(MaterialPage(
+                // name: "sign_in_page",
                 key: ValueKey("SignIn"),
                 child: SignInPage(
                   code: code,
                 )));
           }
         } else {
-          items.add(MaterialPage(key: ValueKey("SignIn"), child: SignInPage()));
+          items.add(MaterialPage(
+              // name: "sign_in_page",
+              key: ValueKey("SignIn"),
+              child: SignInPage()));
         }
       } else if (segment == "build_nbs") {
-        items.add(
-            MaterialPage(key: ValueKey("BuildNbsPage"), child: BuildNbsPage()));
+        items.add(MaterialPage(
+            // name: "build_nbs_page",
+            key: ValueKey("BuildNbsPage"),
+            child: BuildNbsPage()));
       } else if (segment == "build_edit") {
         var modelId = uri.pathSegments[i + 1];
         items.add(MaterialPage(
+            // name: "model_edit_page",
             key: ValueKey("ModelEditPage"),
             child: ModelEditPage(
               modelId: modelId,
@@ -80,6 +91,7 @@ class MainRouterInformationParser
       } else if (segment == "build_start") {
         var buildId = uri.pathSegments[i + 1];
         items.add(MaterialPage(
+            // name: "build_start_page",
             key: ValueKey("BuildStart_$buildId"),
             child: BuildStartPage(
               buildId: buildId,
@@ -88,13 +100,21 @@ class MainRouterInformationParser
     }
 
     if (items.length == 0) {
-      items.add(MaterialPage(key: ValueKey("HomePage"), child: HomePage()));
+      items.add(MaterialPage(
+          // name: "home_page",
+          key: ValueKey("HomePage"),
+          child: HomePage()));
     } else if (items.length == 1 && !(items[0].child is HomePage)) {
       items.insert(
-          0, MaterialPage(key: ValueKey("HomePage"), child: HomePage()));
+          0,
+          MaterialPage(
+              // name: "home_page",
+              key: ValueKey("HomePage"),
+              child: HomePage()));
     }
 
-    return NavigationStack(items, ref.read(meController.notifier));
+    return NavigationStack(
+        items, ref.read(meController.notifier), ref.read(analyticsProvider));
   }
 
   @override

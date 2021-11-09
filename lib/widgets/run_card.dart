@@ -128,7 +128,7 @@ class RunCard extends StatelessWidget {
           Column(
             children: [
               Text(
-                "${formattedDate(run.createdAt)} (${model.githubUsername})",
+                "${formattedDate(run.createdAt)} (${run.githubUsername ?? "anonymous"})",
                 style: Theme.of(context)
                     .textTheme
                     .bodyText2!

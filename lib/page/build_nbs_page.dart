@@ -1,6 +1,4 @@
-import 'dart:developer';
-import 'package:uuid/uuid.dart';
-
+// import 'package:uuid/uuid.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -173,10 +171,10 @@ class BuildNbsNotifier
         state = AsyncData(oldData!);
 
         read(navigationStackProvider).push(MaterialPage(
-            key: ValueKey("ModelInstall_${build.id}_${Uuid().v1()}"),
+            // name: "build_start_page",
             child: BuildStartPage(
-              buildId: build.id,
-            )));
+          buildId: build.id,
+        )));
       } else {
         assert(true);
       }
@@ -352,6 +350,7 @@ class BuildNbsNotifier
 class BuildNbsPage extends ConsumerStatefulWidget {
   final String? githubUrl;
   const BuildNbsPage({this.githubUrl});
+
   @override
   _BuildNbsPage createState() => _BuildNbsPage(githubUrl: githubUrl);
 }

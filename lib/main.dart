@@ -9,15 +9,16 @@ import 'package:yhat_app/routing/stack.dart';
 import 'package:yhat_app/routing/configure_nonweb.dart'
     if (dart.library.html) 'package:yhat_app/routing/configure_web.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:firebase_core/firebase_core.dart';
 
 final navigationStackProvider =
     ChangeNotifierProvider((ref) => NavigationStack([
           MaterialPage(key: ValueKey("HomePage"), child: HomePage()),
-        ], ref.read(meController.notifier)));
+        ], ref.read(meController.notifier), ref.read(analyticsProvider)));
 
 Future main() async {
   configureApp();
@@ -31,6 +32,10 @@ Future main() async {
 }
 
 class MyApp extends StatelessWidget {
+  // static FirebaseAnalytics analytics = FirebaseAnalytics();
+  // static FirebaseAnalyticsObserver observer =
+  //     FirebaseAnalyticsObserver(analytics: analytics);
+
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -44,7 +49,7 @@ class MyApp extends StatelessWidget {
 final provider = FutureProvider<void>((ref) async {
   await ref.read(meController.notifier).load();
   await ref.read(referrerController.notifier).load();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
 });
 
 class LoadMeApp extends ConsumerWidget {
@@ -69,8 +74,10 @@ class MyNavApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      routerDelegate:
-          MainRouterDelegate(stack: ref.read(navigationStackProvider)),
+      routerDelegate: MainRouterDelegate(
+        stack: ref.read(navigationStackProvider),
+        // observer: ref.read(analyticsObserver)
+      ),
       routeInformationParser: MainRouterInformationParser(ref: ref),
       theme: ThemeData(
           appBarTheme: const AppBarTheme(

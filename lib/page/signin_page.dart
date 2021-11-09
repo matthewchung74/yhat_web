@@ -9,8 +9,6 @@ import 'package:yhat_app/widgets/my_app_bar.dart';
 import 'package:yhat_app/widgets/snack_bar.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'dart:developer';
-
 import '../main.dart';
 
 final signinController = StateNotifierProvider.autoDispose

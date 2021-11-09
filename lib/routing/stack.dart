@@ -1,21 +1,23 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:yhat_app/controller/providers.dart';
 import 'package:yhat_app/page/build_nbs_page.dart';
 import 'package:yhat_app/page/home_page.dart';
 import 'package:yhat_app/page/model_edit_page.dart';
-import 'package:yhat_app/page/model_run_page.dart';
 import 'package:yhat_app/page/signin_page.dart';
-import 'dart:developer';
 
 enum PushStatus { Success, NotLoggedIn }
 
 class NavigationStack with ChangeNotifier {
   List<MaterialPage> _items;
   MeNotifier _meNotifier;
+  FirebaseAnalytics _analytics;
 
-  NavigationStack(List<MaterialPage> items, MeNotifier _meNotifier)
+  NavigationStack(List<MaterialPage> items, MeNotifier _meNotifier,
+      FirebaseAnalytics analytics)
       : _items = items,
-        _meNotifier = _meNotifier;
+        _meNotifier = _meNotifier,
+        _analytics = analytics;
 
   List<MaterialPage> get items => _items;
   set items(List<MaterialPage> newItems) {
@@ -24,17 +26,14 @@ class NavigationStack with ChangeNotifier {
   }
 
   void push(MaterialPage item) {
-    // print('push $authPages ${item.child.runtimeType.toString()}');
-    print('push login ${_meNotifier.isLoggedIn()}');
-    if ((item.child is ModelRunPage ||
-            item.child is ModelEditPage ||
-            item.child is BuildNbsPage) &&
+    if ((item.child is ModelEditPage || item.child is BuildNbsPage) &&
         !_meNotifier.isLoggedIn()) {
-      // if (authPages.contains(item.child.runtimeType.toString()) &&
-      //     !_meNotifier.isLoggedIn()) {
       return push(MaterialPage(
           key: ValueKey("SignIn"), child: SignInPage(referrer: item)));
     }
+
+    // print("setting screen to ${item.child.toString()}");
+    // _analytics.setCurrentScreen(screenName: item.child.toString());
 
     _items.add(item);
     notifyListeners();
@@ -43,8 +42,6 @@ class NavigationStack with ChangeNotifier {
   Page? pop() {
     try {
       final poppedItem = _items.removeLast();
-      // var foo = _items.last.child as HomePage;
-      // foo = "abc";
       notifyListeners();
       return poppedItem;
     } catch (e) {
@@ -55,7 +52,10 @@ class NavigationStack with ChangeNotifier {
   void popToRoot() {
     try {
       _items.clear();
-      push(MaterialPage(key: ValueKey("HomePage"), child: HomePage()));
+      push(MaterialPage(
+          // name: "home_page",
+          key: ValueKey("HomePage"),
+          child: HomePage()));
       notifyListeners();
     } catch (e) {
       return null;

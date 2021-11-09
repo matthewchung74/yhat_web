@@ -19,7 +19,6 @@ User _$UserFromJson(Map<String, dynamic> json) {
     token: json['token'] == null
         ? null
         : Token.fromJson(json['token'] as Map<String, dynamic>),
-    earlyAccess: json['early_access'] as bool?,
     type: _$enumDecode(_$UserTypeEnumMap, json['type']),
   );
 }
@@ -35,7 +34,6 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'id': instance.id,
       'token': instance.token?.toJson(),
       'type': _$UserTypeEnumMap[instance.type],
-      'early_access': instance.earlyAccess,
     };
 
 K _$enumDecode<K, V>(

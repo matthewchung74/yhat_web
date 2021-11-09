@@ -121,6 +121,7 @@ class StartBuildNotifier
           ref
               .read(navigationStackProvider)
               .push(MaterialPage(child: ModelRunPage(modelId: data.modelId)));
+          // name: "model_run_page"));
         },
         loading: () {},
         error: (err, stack) => {});
@@ -169,7 +170,6 @@ class StartBuildNotifier
     }
 
     final _runningProvider = ref.read(runningProvider);
-    // var channel;
     try {
       _runningProvider.state = Started;
       String wsUrl =

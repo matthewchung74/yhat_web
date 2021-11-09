@@ -96,8 +96,8 @@ class _ModelPageState extends ConsumerState<ModelPage>
 
   Function()? buildPressed({required Model model}) {
     ref.read(navigationStackProvider).push(MaterialPage(
-        key: ValueKey("BuildStart_${model.activeBuildId}"),
-        child: BuildStartPage(
+            // name: "build_start_page",
+            child: BuildStartPage(
           buildId: model.activeBuildId!,
         )));
   }
@@ -332,7 +332,8 @@ class _ModelPageState extends ConsumerState<ModelPage>
                     return ElevatedButton(
                         onPressed: () {
                           ref.read(navigationStackProvider).push(MaterialPage(
-                                  child: ModelRunPage(
+                              name: "model_run_page",
+                              child: ModelRunPage(
                                 modelId: model.id,
                               )));
                         },
@@ -403,6 +404,7 @@ class _ModelPageState extends ConsumerState<ModelPage>
                       return ElevatedButton(
                           onPressed: () async {
                             ref.read(navigationStackProvider).push(MaterialPage(
+                                name: "model_edit_page",
                                 child: ModelEditPage(modelId: modelId)));
                           },
                           style: Theme.of(context)
@@ -445,7 +447,8 @@ class _ModelPageState extends ConsumerState<ModelPage>
                   return TextButton(
                       onPressed: () {
                         ref.read(navigationStackProvider).push(MaterialPage(
-                                child: ProfilePage(
+                            name: "proflie_page",
+                            child: ProfilePage(
                               profileId: model.user!.id!,
                             )));
                       },

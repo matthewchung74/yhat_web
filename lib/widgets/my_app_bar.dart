@@ -4,7 +4,7 @@ import 'package:yhat_app/controller/providers.dart';
 import 'package:yhat_app/helpers/ui.dart';
 import 'package:yhat_app/page/profile_page.dart';
 import 'package:yhat_app/page/signin_page.dart';
-import 'package:uuid/uuid.dart';
+// import 'package:uuid/uuid.dart';
 
 import '../main.dart';
 
@@ -28,8 +28,10 @@ AppBar myAppBar(
               side: BorderSide(color: Colors.grey.shade300, width: 1),
             ),
             onPressed: () {
-              ref.read(navigationStackProvider).push(
-                  MaterialPage(key: ValueKey("SignIn"), child: SignInPage()));
+              ref.read(navigationStackProvider).push(MaterialPage(
+                  // name: "sign_in_page",
+                  key: ValueKey("SignIn"),
+                  child: SignInPage()));
             },
             child: Text(
               "Sign In",
@@ -39,8 +41,8 @@ AppBar myAppBar(
     }
     MaterialPage lastPage = ref.read(navigationStackProvider).items.last;
     String userId = ref.read(meController).id!;
-    if (lastPage.key != null &&
-        lastPage.key!.toString().contains('ProfilePage_$userId')) {
+    if (lastPage.child is ProfilePage &&
+        (lastPage.child as ProfilePage).profileId == userId) {
       return TextButton(
           child: Text(
             "Sign Out",
@@ -63,8 +65,8 @@ AppBar myAppBar(
           ),
           onPressed: () {
             ref.read(navigationStackProvider).push(MaterialPage(
-                key: ValueKey("ProfilePage_${controller.id!}_${Uuid().v1()}"),
-                child: ProfilePage(
+                    // name: "profile_page",
+                    child: ProfilePage(
                   profileId: controller.id!,
                 )));
           });
@@ -74,8 +76,8 @@ AppBar myAppBar(
               backgroundImage: NetworkImage(controller.avatarUrl!)),
           onPressed: () {
             ref.read(navigationStackProvider).push(MaterialPage(
-                key: ValueKey("ProfilePage_${controller.id!}_${Uuid().v1()}"),
-                child: ProfilePage(
+                    // name: "profile_page",
+                    child: ProfilePage(
                   profileId: controller.id!,
                 )));
           });

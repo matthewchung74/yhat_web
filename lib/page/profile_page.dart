@@ -168,7 +168,7 @@ class HeaderWidget extends ConsumerWidget {
         (32 * screenWidth / 800) > 32 ? 32 : (32 * screenWidth / 800);
     double calculatedButtonFontSize =
         (20 * screenWidth / 600) > 20 ? 20 : 20 * screenWidth / 800;
-    bool hasEarlyAccess = user.earlyAccess != null ? user.earlyAccess! : false;
+    // bool hasEarlyAccess = user.earlyAccess != null ? user.earlyAccess! : false;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -187,12 +187,14 @@ class HeaderWidget extends ConsumerWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            if (isMe && hasEarlyAccess)
+            if (isMe)
+              // if (isMe && hasEarlyAccess)
               Flexible(
                   flex: 1,
                   child: ElevatedButton(
                       onPressed: () {
                         ref.read(navigationStackProvider).push(MaterialPage(
+                            // name: "build_nbs_page",
                             key: ValueKey("BuildNbsPage"),
                             child: BuildNbsPage()));
                       },
@@ -210,50 +212,50 @@ class HeaderWidget extends ConsumerWidget {
                                       fontSize: calculatedButtonFontSize)),
                         ),
                       ))),
-            if (isMe && !hasEarlyAccess)
-              Flexible(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                          onPressed: null,
-                          style: Theme.of(context)
-                              .elevatedButtonTheme
-                              .style!
-                              .copyWith(
-                                  backgroundColor:
-                                      MaterialStateProperty.resolveWith(
-                                          (states) => Colors.grey.shade400)),
-                          child: SizedBox(
-                            width: 220,
-                            height: 40,
-                            child: Center(
-                              child: Text("Upload Model",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline5!
-                                      .copyWith(
-                                          color: Colors.white,
-                                          fontSize: calculatedButtonFontSize)),
-                            ),
-                          )),
-                      TextButton(
-                          onPressed: () async {
-                            await launchURLBrowser(
-                                url: "https://github.com/yhatpub/yhatpub");
-                          },
-                          style: Theme.of(context).textButtonTheme.style,
-                          child: Text(
-                            "beta access required",
-                            textAlign: TextAlign.right,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(color: Colors.blue.shade700),
-                            overflow: TextOverflow.ellipsis,
-                          ))
-                    ],
-                  )),
+            // if (isMe && !hasEarlyAccess)
+            //   Flexible(
+            //       flex: 1,
+            //       child: Column(
+            //         children: [
+            //           ElevatedButton(
+            //               onPressed: null,
+            //               style: Theme.of(context)
+            //                   .elevatedButtonTheme
+            //                   .style!
+            //                   .copyWith(
+            //                       backgroundColor:
+            //                           MaterialStateProperty.resolveWith(
+            //                               (states) => Colors.grey.shade400)),
+            //               child: SizedBox(
+            //                 width: 220,
+            //                 height: 40,
+            //                 child: Center(
+            //                   child: Text("Upload Model",
+            //                       style: Theme.of(context)
+            //                           .textTheme
+            //                           .headline5!
+            //                           .copyWith(
+            //                               color: Colors.white,
+            //                               fontSize: calculatedButtonFontSize)),
+            //                 ),
+            //               )),
+            //           TextButton(
+            //               onPressed: () async {
+            //                 await launchURLBrowser(
+            //                     url: "https://github.com/yhatpub/yhatpub");
+            //               },
+            //               style: Theme.of(context).textButtonTheme.style,
+            //               child: Text(
+            //                 "beta access required",
+            //                 textAlign: TextAlign.right,
+            //                 style: Theme.of(context)
+            //                     .textTheme
+            //                     .bodyText1!
+            //                     .copyWith(color: Colors.blue.shade700),
+            //                 overflow: TextOverflow.ellipsis,
+            //               ))
+            //         ],
+            //       )),
           ],
         ),
         Row(
@@ -301,6 +303,7 @@ class BodyWidget extends StatelessWidget {
         models: models,
         onModelPressed: ({required Model model}) {
           ref.read(navigationStackProvider).push(MaterialPage(
+                  // name: "model_page",
                   child: ModelPage(
                 modelId: model.id,
               )));
@@ -309,6 +312,7 @@ class BodyWidget extends StatelessWidget {
         },
         onProfilePressed: ({required Model model}) {
           ref.read(navigationStackProvider).push(MaterialPage(
+              // name: "profile_page",
               key: ValueKey("ProfilePage_${model.userId}"),
               child: ProfilePage(
                 profileId: model.userId,

@@ -247,7 +247,7 @@ class API {
       var uri = Uri.parse('$baseUrl/signed_url/$modelId?run_id=$runId');
 
       String body =
-          await request(method: Method.Post, isAuthenticated: true, uri: uri);
+          await request(method: Method.Post, isAuthenticated: null, uri: uri);
       var list = jsonDecode(body) as List;
       List<SignedUrl> signedUrls =
           list.map((run) => SignedUrl.fromJson(run)).toList();
@@ -303,7 +303,7 @@ class API {
       var postBody = jsonEncode(inputs);
 
       String body = await request(
-          method: Method.Post, isAuthenticated: true, uri: uri, body: postBody);
+          method: Method.Post, isAuthenticated: null, uri: uri, body: postBody);
 
       return Run.fromJson(json.decode(body));
     } on TokenException catch (e, _) {
@@ -366,16 +366,25 @@ class API {
 
   Future<String> request(
       {required Method method,
-      required bool isAuthenticated,
+      bool? isAuthenticated,
       required Uri uri,
       String body = ''}) async {
     AuthClient? client;
-    if (isAuthenticated) {
-      Token? token = read(meController).token;
-      if (token == null) throw TokenException(cause: 'Token not found');
-      client = AuthClient(token: token);
+    if (isAuthenticated != null) {
+      if (isAuthenticated) {
+        Token? token = read(meController).token;
+        if (token == null) throw TokenException(cause: 'Token not found');
+        client = AuthClient(token: token);
+      } else {
+        client = AuthClient();
+      }
     } else {
-      client = AuthClient();
+      Token? token = read(meController).token;
+      if (token != null) {
+        client = AuthClient(token: token);
+      } else {
+        client = AuthClient();
+      }
     }
 
     try {

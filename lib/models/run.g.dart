@@ -14,6 +14,7 @@ Run _$RunFromJson(Map<String, dynamic> json) {
     inputJson: json['input_json'] as Map<String, dynamic>,
     outputJson: json['output_json'] as Map<String, dynamic>,
     thumbJson: json['thumb_json'] as Map<String, dynamic>?,
+    githubUsername: json['github_username'] as String?,
     createdAt: DateTime.parse(json['created_at'] as String),
   );
 }
@@ -22,6 +23,7 @@ Map<String, dynamic> _$RunToJson(Run instance) => <String, dynamic>{
       'id': instance.id,
       'model_id': instance.modelId,
       'build_id': instance.buildId,
+      'github_username': instance.githubUsername,
       'input_json': instance.inputJson,
       'output_json': instance.outputJson,
       'thumb_json': instance.thumbJson,

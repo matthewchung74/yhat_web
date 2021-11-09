@@ -24,7 +24,7 @@ class User {
   String? id;
   Token? token;
   UserType type;
-  bool? earlyAccess;
+  // bool? earlyAccess;
   User(
       {this.avatarUrl,
       this.company,
@@ -35,7 +35,7 @@ class User {
       this.githubUsername,
       this.id,
       this.token,
-      this.earlyAccess,
+      // this.earlyAccess,
       this.type = UserType.Anonymous});
 
   User clone() {

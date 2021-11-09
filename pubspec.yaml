@@ -24,8 +24,8 @@ dependencies:
   another_flushbar: ^1.10.22
   equatable: ^2.0.0
   file_picker: ^3.0.4
-  # firebase_analytics: ^8.3.4
-  # firebase_core: ^1.8.0
+  firebase_analytics: ^8.3.4
+  firebase_core: ^1.9.0
   flutter:
     sdk: flutter
   flutter_dotenv: ^4.0.0-nullsafety.1

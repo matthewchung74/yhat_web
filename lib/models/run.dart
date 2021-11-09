@@ -7,6 +7,7 @@ class Run {
   final String id;
   final String modelId;
   final String buildId;
+  final String? githubUsername;
   final Map<String, dynamic> inputJson;
   final Map<String, dynamic> outputJson;
   final Map<String, dynamic>? thumbJson;
@@ -18,6 +19,7 @@ class Run {
       required this.inputJson,
       required this.outputJson,
       this.thumbJson,
+      this.githubUsername,
       required this.createdAt});
 
   factory Run.fromJson(Map<String, dynamic> json) => _$RunFromJson(json);

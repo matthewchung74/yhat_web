@@ -48,6 +48,17 @@ class RunCard extends StatelessWidget {
       required Map<String, dynamic> jsonType}) {
     double imageWidth = MediaQuery.of(context).size.width / 3.0;
 
+    print("thumbJson $thumbJson");
+    if (thumbJson != null) {
+      print(
+          "thumbJson.containsKey(runJson[runJsonKey]) ${thumbJson.containsKey(runJson[runJsonKey])}");
+      print("thumbJson[runJson[runJsonKey]] ${thumbJson[runJson[runJsonKey]]}");
+    }
+    print("runJson $runJson");
+    print("runJsonKey $runJsonKey");
+    print(
+        "thumbJson.containsKey(runJson[runJsonKey]) ${thumbJson?.containsKey(runJson[runJsonKey])}");
+    print("runJson[runJsonKey] ${runJson[runJsonKey]}");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

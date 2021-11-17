@@ -56,7 +56,7 @@ class SigninNotifier extends StateNotifier<AsyncValue<User>?> {
       read(meController.notifier).persist();
 
       state = AsyncData(user);
-      read(analyticsProvider).setUserId(user.id);
+      read(analyticsProvider).setUserId(id: user.id);
     } catch (e) {
       state = AsyncError(e);
     }

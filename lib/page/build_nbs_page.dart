@@ -171,10 +171,10 @@ class BuildNbsNotifier
         state = AsyncData(oldData!);
 
         read(navigationStackProvider).push(MaterialPage(
-            // name: "build_start_page",
+            name: "BuildStartPage",
             child: BuildStartPage(
-          buildId: build.id,
-        )));
+              buildId: build.id,
+            )));
       } else {
         assert(true);
       }

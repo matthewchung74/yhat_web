@@ -17,7 +17,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 final navigationStackProvider =
     ChangeNotifierProvider((ref) => NavigationStack([
-          MaterialPage(key: ValueKey("HomePage"), child: HomePage()),
+          MaterialPage(
+              name: "HomePage", key: ValueKey("HomePage"), child: HomePage()),
         ], ref.read(meController.notifier), ref.read(analyticsProvider)));
 
 Future main() async {
@@ -72,7 +73,9 @@ class MyNavApp extends ConsumerWidget {
     return MaterialApp.router(
       routerDelegate: MainRouterDelegate(
           stack: ref.read(navigationStackProvider),
-          observer: ref.read(analyticsObserver)),
+          analytics: ref.read(analyticsProvider)
+          // observer: ref.read(analyticsObserver))
+          ),
       routeInformationParser: MainRouterInformationParser(ref: ref),
       theme: ThemeData(
           appBarTheme: const AppBarTheme(

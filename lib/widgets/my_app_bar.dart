@@ -29,7 +29,7 @@ AppBar myAppBar(
             ),
             onPressed: () {
               ref.read(navigationStackProvider).push(MaterialPage(
-                  // name: "sign_in_page",
+                  name: "SignInPage",
                   key: ValueKey("SignIn"),
                   child: SignInPage()));
             },
@@ -65,8 +65,8 @@ AppBar myAppBar(
           ),
           onPressed: () {
             ref.read(navigationStackProvider).push(MaterialPage(
-                    // name: "profile_page",
-                    child: ProfilePage(
+                name: "ProfilePage",
+                child: ProfilePage(
                   profileId: controller.id!,
                 )));
           });
@@ -76,8 +76,8 @@ AppBar myAppBar(
               backgroundImage: NetworkImage(controller.avatarUrl!)),
           onPressed: () {
             ref.read(navigationStackProvider).push(MaterialPage(
-                    // name: "profile_page",
-                    child: ProfilePage(
+                name: "ProfilePage",
+                child: ProfilePage(
                   profileId: controller.id!,
                 )));
           });

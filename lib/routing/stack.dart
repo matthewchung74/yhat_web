@@ -26,10 +26,15 @@ class NavigationStack with ChangeNotifier {
   }
 
   void push(MaterialPage item) {
+    print("push $item");
     if ((item.child is ModelEditPage || item.child is BuildNbsPage) &&
         !_meNotifier.isLoggedIn()) {
       return push(MaterialPage(
           key: ValueKey("SignIn"), child: SignInPage(referrer: item)));
+    }
+
+    if (item.name != null) {
+      _analytics.logEvent(name: item.name!);
     }
 
     _items.add(item);
@@ -49,7 +54,8 @@ class NavigationStack with ChangeNotifier {
   void popToRoot() {
     try {
       _items.clear();
-      push(MaterialPage(key: ValueKey("HomePage"), child: HomePage()));
+      push(MaterialPage(
+          name: "HomePage", key: ValueKey("HomePage"), child: HomePage()));
       notifyListeners();
     } catch (e) {
       return null;

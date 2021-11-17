@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
-import 'package:flutter/material.dart';
+// import 'package:firebase_analytics/observer.dart';
+// import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yhat_app/api/api.dart';
@@ -10,23 +10,28 @@ import 'package:yhat_app/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final analyticsProvider = Provider<FirebaseAnalytics>((ref) {
-  FirebaseAnalytics analytics = FirebaseAnalytics();
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   analytics.setAnalyticsCollectionEnabled(true);
   return analytics;
 });
 
-final analyticsObserver =
-    Provider<FirebaseAnalyticsObserver>((ref) => FirebaseAnalyticsObserver(
-          analytics: ref.read(analyticsProvider),
-          nameExtractor: (RouteSettings settings) {
-            MaterialPage page = (settings as MaterialPage);
-            print("analytics ${page.child.toString()}");
-            return page.child.toString();
-          },
-          onError: (error) {
-            print(error);
-          },
-        ));
+// final analyticsObserver =
+//     Provider<FirebaseAnalyticsObserver>((ref) => FirebaseAnalyticsObserver(
+//           analytics: ref.read(analyticsProvider),
+//           nameExtractor: (RouteSettings settings) {
+//             MaterialPage page = (settings as MaterialPage);
+
+//             ref
+//                 .read(amplitudeProvider)
+//                 .logEvent("screen", {"name": page.child.toString()});
+
+//             print("analytics ${page.child.toString()}");
+//             return page.child.toString();
+//           },
+//           onError: (error) {
+//             print(error);
+//           },
+//         ));
 
 final apiProvider = Provider<API>((ref) => API(read: ref.read));
 
@@ -68,7 +73,7 @@ class MeNotifier extends StateNotifier<User> {
           state = user;
         }
       }
-      read(analyticsProvider).setUserId(user.id);
+      read(analyticsProvider).setUserId(id: user.id);
     } else {
       print('load:no me');
     }
@@ -77,8 +82,7 @@ class MeNotifier extends StateNotifier<User> {
   Future<void> logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('me');
-    read(analyticsProvider).setUserId(null);
-
+    read(analyticsProvider).setUserId(id: null);
     state = User();
   }
 }

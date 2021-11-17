@@ -30,29 +30,28 @@ class MainRouterInformationParser
         var modelId = uri.pathSegments[i + 1];
 
         items.add(MaterialPage(
-            // name: "model_page",
+            name: "ModelPage",
             child: ModelPage(
-          modelId: modelId,
-        )));
+              modelId: modelId,
+            )));
       } else if (segment == "profile") {
         var id = uri.pathSegments[i + 1];
         items.add(MaterialPage(
-            // name: "profile_page",
-            // key: ValueKey("ProfilePage_$id"),
+            name: "ProfilePage",
             child: ProfilePage(
-          profileId: id,
-        )));
+              profileId: id,
+            )));
       } else if (segment == "run_model") {
         var id = uri.pathSegments[i + 1];
         items.add(MaterialPage(
-            // name: "model_run_page",
+            name: "ModelRunPage",
             child: ModelRunPage(
-          modelId: id,
-        )));
+              modelId: id,
+            )));
       } else if (segment == "run_list") {
         var id = uri.pathSegments[i + 1];
         items.add(MaterialPage(
-            // name: "run_list_page",
+            name: "RunListPage",
             key: ValueKey("RunListPage_$id"),
             child: RunListPage(
               modelId: id,
@@ -63,7 +62,7 @@ class MainRouterInformationParser
           } else {
             String code = uri.queryParameters['code']!;
             items.add(MaterialPage(
-                // name: "sign_in_page",
+                name: "SignInPage",
                 key: ValueKey("SignIn"),
                 child: SignInPage(
                   code: code,
@@ -71,19 +70,19 @@ class MainRouterInformationParser
           }
         } else {
           items.add(MaterialPage(
-              // name: "sign_in_page",
+              name: "SignInPage",
               key: ValueKey("SignIn"),
               child: SignInPage()));
         }
       } else if (segment == "build_nbs") {
         items.add(MaterialPage(
-            // name: "build_nbs_page",
+            name: "BuildNbsPage",
             key: ValueKey("BuildNbsPage"),
             child: BuildNbsPage()));
       } else if (segment == "build_edit") {
         var modelId = uri.pathSegments[i + 1];
         items.add(MaterialPage(
-            // name: "model_edit_page",
+            name: "ModelEditPage",
             key: ValueKey("ModelEditPage"),
             child: ModelEditPage(
               modelId: modelId,
@@ -91,7 +90,7 @@ class MainRouterInformationParser
       } else if (segment == "build_start") {
         var buildId = uri.pathSegments[i + 1];
         items.add(MaterialPage(
-            // name: "build_start_page",
+            name: "BuildStartPage",
             key: ValueKey("BuildStart_$buildId"),
             child: BuildStartPage(
               buildId: buildId,
@@ -101,16 +100,12 @@ class MainRouterInformationParser
 
     if (items.length == 0) {
       items.add(MaterialPage(
-          // name: "home_page",
-          key: ValueKey("HomePage"),
-          child: HomePage()));
+          name: "HomePage", key: ValueKey("HomePage"), child: HomePage()));
     } else if (items.length == 1 && !(items[0].child is HomePage)) {
       items.insert(
           0,
           MaterialPage(
-              // name: "home_page",
-              key: ValueKey("HomePage"),
-              child: HomePage()));
+              name: "HomePage", key: ValueKey("HomePage"), child: HomePage()));
     }
 
     return NavigationStack(

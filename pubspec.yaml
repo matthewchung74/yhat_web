@@ -34,7 +34,7 @@ dependencies:
   http: ^0.13.3
   intl: ^0.17.0
   json_annotation: ^4.0.1
-  sentry_flutter: ^5.0.0
+  sentry_flutter: ^6.1.2
   shared_preferences: ^2.0.6
   url_launcher: ^6.0.3
   uuid: ^3.0.4

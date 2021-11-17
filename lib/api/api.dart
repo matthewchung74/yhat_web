@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart';
 import 'package:http/retry.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:yhat_app/controller/providers.dart';
 import 'package:yhat_app/helpers/errors.dart';
 import 'package:yhat_app/models/branch.dart';
@@ -22,7 +23,6 @@ import 'package:yhat_app/models/token.dart';
 import 'package:yhat_app/models/user.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:http_parser/http_parser.dart';
 
 String baseUrl = env['SERVER_BASE_URL']!;

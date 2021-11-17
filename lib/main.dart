@@ -32,10 +32,6 @@ Future main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // static FirebaseAnalytics analytics = FirebaseAnalytics();
-  // static FirebaseAnalyticsObserver observer =
-  //     FirebaseAnalyticsObserver(analytics: analytics);
-
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -75,9 +71,8 @@ class MyNavApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       routerDelegate: MainRouterDelegate(
-        stack: ref.read(navigationStackProvider),
-        // observer: ref.read(analyticsObserver)
-      ),
+          stack: ref.read(navigationStackProvider),
+          observer: ref.read(analyticsObserver)),
       routeInformationParser: MainRouterInformationParser(ref: ref),
       theme: ThemeData(
           appBarTheme: const AppBarTheme(

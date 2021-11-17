@@ -32,9 +32,6 @@ class NavigationStack with ChangeNotifier {
           key: ValueKey("SignIn"), child: SignInPage(referrer: item)));
     }
 
-    // print("setting screen to ${item.child.toString()}");
-    // _analytics.setCurrentScreen(screenName: item.child.toString());
-
     _items.add(item);
     notifyListeners();
   }
@@ -52,10 +49,7 @@ class NavigationStack with ChangeNotifier {
   void popToRoot() {
     try {
       _items.clear();
-      push(MaterialPage(
-          // name: "home_page",
-          key: ValueKey("HomePage"),
-          child: HomePage()));
+      push(MaterialPage(key: ValueKey("HomePage"), child: HomePage()));
       notifyListeners();
     } catch (e) {
       return null;

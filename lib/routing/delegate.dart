@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 // import 'package:firebase_analytics/observer.dart';
 import 'package:yhat_app/routing/stack.dart';
@@ -5,7 +6,7 @@ import 'package:yhat_app/routing/stack.dart';
 class MainRouterDelegate extends RouterDelegate<NavigationStack>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
   final NavigationStack stack;
-  // final FirebaseAnalyticsObserver observer;
+  final FirebaseAnalyticsObserver observer;
 
   @override
   void dispose() {
@@ -13,10 +14,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStack>
     super.dispose();
   }
 
-  MainRouterDelegate({
-    required this.stack,
-    // required this.observer
-  }) : super() {
+  MainRouterDelegate({required this.stack, required this.observer}) : super() {
     stack.addListener(notifyListeners);
   }
 
@@ -27,7 +25,7 @@ class MainRouterDelegate extends RouterDelegate<NavigationStack>
   Widget build(BuildContext context) {
     return Navigator(
       key: navigatorKey,
-      // observers: [observer],
+      observers: [observer],
       pages: _pages(context: context),
       onPopPage: (route, result) {
         if (!route.didPop(result)) {

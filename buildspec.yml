@@ -17,8 +17,9 @@ phases:
       - echo "GITHUB_AUTH_URL=$GITHUB_AUTH_URL" >> build/web/assets/.env
       - echo "SENTRY_URL=$SENTRY_URL" >> build/web/assets/.env
       - |
-        if ["$SERVER_BASE_URL" == "https://api.yhat.pub"] ; then
-          cp index.prod.html index.html
+        if ["$SERVER_BASE_URL" = "https://api.yhat.pub"] ; then
+          mv index.prod.html index.html
+          echo copying prod file
         fi
       - |
         if [ -z "$CLOUDFRONT_DISTRIBUTION_ID"] ; then

@@ -11,20 +11,17 @@ phases:
   build:
     commands:
       - flutter build web --release
+      - mv $INDEX_FILE index.html
+
   post_build:
     commands:
       - echo "SERVER_BASE_URL=$SERVER_BASE_URL" > build/web/assets/.env
       - echo "GITHUB_AUTH_URL=$GITHUB_AUTH_URL" >> build/web/assets/.env
       - echo "SENTRY_URL=$SENTRY_URL" >> build/web/assets/.env
-      - |
-        if [$SERVER_BASE_URL = "https://api.yhat.pub"] ; then
-          mv index.prod.html index.html
-          echo copying prod file
-        fi
-      - |
-        if [ -z $CLOUDFRONT_DISTRIBUTION_ID] ; then
-          aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
-        fi
+      # - |
+      #   if [ -z $CLOUDFRONT_DISTRIBUTION_ID] ; then
+      #     aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
+      #   fi
       - echo Build completed on `date`
 artifacts:
   files:

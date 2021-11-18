@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:yhat_app/controller/providers.dart';
 import 'package:yhat_app/models/model.dart';
 import 'package:yhat_app/models/run.dart';
 import 'package:yhat_app/models/signedUrl.dart';
-import 'package:yhat_app/models/user.dart';
 import 'package:yhat_app/widgets/my_app_bar.dart';
 import 'package:yhat_app/widgets/run_list.dart';
 import 'package:uuid/uuid.dart';
@@ -108,8 +108,12 @@ class RunModelNotifier
       _hasNewResult = true;
       _model!.activeBuild!.lastRun = new DateTime.now();
       state = AsyncData(ModelNotifierResponse(model: _model!, runs: _runs));
-    } catch (e) {
+    } catch (e, st) {
       state = AsyncError(e);
+      await Sentry.captureException(
+        e,
+        stackTrace: st,
+      );
     }
   }
 

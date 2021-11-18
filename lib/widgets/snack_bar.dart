@@ -125,7 +125,7 @@ class _SnackBarWidgetState extends State<SnackBarWidget> {
                           ),
                           onPressed: () {
                             nav.push(MaterialPage(
-                                // name: "sign_in_page",
+                                name: "SignInPage",
                                 key: ValueKey("SignIn"),
                                 child: SignInPage()));
                           },

@@ -9,23 +9,26 @@ import 'package:yhat_app/api/api.dart';
 import 'package:yhat_app/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// typedef screenNameExtractor = String? Function(RouteSettings settings);
-
 final analyticsProvider = Provider<FirebaseAnalytics>((ref) {
-  FirebaseAnalytics analytics = FirebaseAnalytics();
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   analytics.setAnalyticsCollectionEnabled(true);
   return analytics;
 });
+
 // final analyticsObserver =
 //     Provider<FirebaseAnalyticsObserver>((ref) => FirebaseAnalyticsObserver(
 //           analytics: ref.read(analyticsProvider),
 //           nameExtractor: (RouteSettings settings) {
 //             MaterialPage page = (settings as MaterialPage);
+
+//             ref
+//                 .read(amplitudeProvider)
+//                 .logEvent("screen", {"name": page.child.toString()});
+
 //             print("analytics ${page.child.toString()}");
 //             return page.child.toString();
 //           },
 //           onError: (error) {
-//             debugger();
 //             print(error);
 //           },
 //         ));
@@ -70,6 +73,7 @@ class MeNotifier extends StateNotifier<User> {
           state = user;
         }
       }
+      read(analyticsProvider).setUserId(id: user.id);
     } else {
       print('load:no me');
     }
@@ -78,6 +82,7 @@ class MeNotifier extends StateNotifier<User> {
   Future<void> logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('me');
+    read(analyticsProvider).setUserId(id: null);
     state = User();
   }
 }

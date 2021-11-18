@@ -17,7 +17,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 final navigationStackProvider =
     ChangeNotifierProvider((ref) => NavigationStack([
-          MaterialPage(key: ValueKey("HomePage"), child: HomePage()),
+          MaterialPage(
+              name: "HomePage", key: ValueKey("HomePage"), child: HomePage()),
         ], ref.read(meController.notifier), ref.read(analyticsProvider)));
 
 Future main() async {
@@ -32,10 +33,6 @@ Future main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // static FirebaseAnalytics analytics = FirebaseAnalytics();
-  // static FirebaseAnalyticsObserver observer =
-  //     FirebaseAnalyticsObserver(analytics: analytics);
-
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
@@ -75,9 +72,10 @@ class MyNavApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       routerDelegate: MainRouterDelegate(
-        stack: ref.read(navigationStackProvider),
-        // observer: ref.read(analyticsObserver)
-      ),
+          stack: ref.read(navigationStackProvider),
+          analytics: ref.read(analyticsProvider)
+          // observer: ref.read(analyticsObserver))
+          ),
       routeInformationParser: MainRouterInformationParser(ref: ref),
       theme: ThemeData(
           appBarTheme: const AppBarTheme(

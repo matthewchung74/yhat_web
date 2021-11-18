@@ -118,9 +118,9 @@ class StartBuildNotifier
     final _buildProvider = ref.watch(buildProvider(buildId));
     _buildProvider.when(
         data: (data) {
-          ref
-              .read(navigationStackProvider)
-              .push(MaterialPage(child: ModelRunPage(modelId: data.modelId)));
+          ref.read(navigationStackProvider).push(MaterialPage(
+              name: "ModelRunPage",
+              child: ModelRunPage(modelId: data.modelId)));
           // name: "model_run_page"));
         },
         loading: () {},

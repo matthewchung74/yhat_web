@@ -194,7 +194,7 @@ class HeaderWidget extends ConsumerWidget {
                   child: ElevatedButton(
                       onPressed: () {
                         ref.read(navigationStackProvider).push(MaterialPage(
-                            // name: "build_nbs_page",
+                            name: "BuildNbsPage",
                             key: ValueKey("BuildNbsPage"),
                             child: BuildNbsPage()));
                       },
@@ -303,8 +303,8 @@ class BodyWidget extends StatelessWidget {
         models: models,
         onModelPressed: ({required Model model}) {
           ref.read(navigationStackProvider).push(MaterialPage(
-                  // name: "model_page",
-                  child: ModelPage(
+              name: "ModelPage",
+              child: ModelPage(
                 modelId: model.id,
               )));
 
@@ -312,7 +312,7 @@ class BodyWidget extends StatelessWidget {
         },
         onProfilePressed: ({required Model model}) {
           ref.read(navigationStackProvider).push(MaterialPage(
-              // name: "profile_page",
+              name: "ProfilePage",
               key: ValueKey("ProfilePage_${model.userId}"),
               child: ProfilePage(
                 profileId: model.userId,

@@ -77,8 +77,8 @@ class RunList extends StatelessWidget {
                       return TextButton(
                           onPressed: () {
                             ref.read(navigationStackProvider).push(MaterialPage(
-                                    // name: "run_list_page",
-                                    child: RunListPage(
+                                name: "RunListPage",
+                                child: RunListPage(
                                   modelId: model!.id,
                                 )));
                           },

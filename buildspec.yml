@@ -11,7 +11,7 @@ phases:
   build:
     commands:
       - flutter build web --release
-      - mv build/web/$INDEX_FILE build/web/index.html
+      - cp build/web/$INDEX_FILE build/web/index.html
 
   post_build:
     commands:

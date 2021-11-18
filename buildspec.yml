@@ -16,10 +16,14 @@ phases:
       - echo "SERVER_BASE_URL=$SERVER_BASE_URL" > build/web/assets/.env
       - echo "GITHUB_AUTH_URL=$GITHUB_AUTH_URL" >> build/web/assets/.env
       - echo "SENTRY_URL=$SENTRY_URL" >> build/web/assets/.env
-      # - |
-      #   if [ -z "$CLOUDFRONT_DISTRIBUTION_ID"] ; then
-      #     aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
-      #   fi
+      - |
+        if ["$SERVER_BASE_URL" == "https://api.yhat.pub"] ; then
+          cp index.prod.html index.html
+        fi
+      - |
+        if [ -z "$CLOUDFRONT_DISTRIBUTION_ID"] ; then
+          aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
+        fi
       - echo Build completed on `date`
 artifacts:
   files:

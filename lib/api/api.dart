@@ -29,7 +29,8 @@ String baseUrl = env['SERVER_BASE_URL']!;
 
 class AuthClient extends http.BaseClient {
   final Token? token;
-  http.Client inner = RetryClient(BrowserClient()..withCredentials = true);
+  // http.Client inner = RetryClient(BrowserClient()..withCredentials = true);
+  http.Client inner = RetryClient(http.Client());
 
   AuthClient({this.token});
 

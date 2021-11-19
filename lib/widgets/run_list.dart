@@ -127,9 +127,9 @@ class RunList extends StatelessWidget {
 
       Run run = runs![index - (showHeader ? 1 : 0)];
       if (index == runs!.length - 1) {
-        return RunCard(model: model!, run: run);
+        return RunCard(model: model!, run: run, key: ValueKey(run.id));
       } else {
-        return RunCard(model: model!, run: run);
+        return RunCard(model: model!, run: run, key: ValueKey(run.id));
       }
     }, childCount: runs!.length + (showHeader ? 1 : 0)));
   }
